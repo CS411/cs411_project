@@ -1,19 +1,18 @@
-$(document).ready(function(){
-  $("#button1").click(function(){
-    $.ajax({
-      url: "cs411.php"
-      , type: 'post'
-      , dataType: 'json'
-      , data: {
-        FirstName: $( "#firstName" ).val()
-	, LastName: $( "#lastName" ).val()
-	, Age: $( "#age" ).val() 
+(function() {
+  var self = this;
+  $.ajax({
+    url: './cs411.php?request=category',
+    dataType: 'json',
+    success: function(result) {
+      var cat = $("#category");
+      for (var i=0;i<result;i++) {
+      var option=document.createElement("option");
+      option.text="Kiwi";
+      try {
+        cat.append(option);
+      } catch (e) {
+        alert(cat.size);
       }
-      , error: function(response){
-      }
-      , success:function(result){
-        alert("success");
-      }
-    });
+    }
   });
-});
+})();
