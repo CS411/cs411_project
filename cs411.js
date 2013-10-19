@@ -1,15 +1,11 @@
 $(document).ready(function(){
   $("#button1").click(function(){
     $.ajax({
-      url: "cs411.php"
-      , type: 'post'
+      url: "post.php?request=categories"
+      , type: 'get'
       , dataType: 'json'
-      , data: {
-        FirstName: $( "#firstName" ).val()
-	, LastName: $( "#lastName" ).val()
-	, Age: $( "#age" ).val() 
-      }
       , error: function(response){
+        alert("fail");
       }
       , success:function(result){
         alert("success");
