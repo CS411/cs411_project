@@ -1,7 +1,7 @@
 (function() {
   var self = this;
   $.ajax({
-    url: './cs411.php?request=category',
+    url: './post.php?request=category',
     dataType: 'json',
     success: function(result) {
       var cat = $("#category");
