@@ -1,3 +1,5 @@
+// This function finds the list of categories and push them into the drop down
+// list
 newFunc(function() {
   ajaxCall(
     './post.php?request=category',
@@ -7,20 +9,20 @@ newFunc(function() {
       for (var i=0; i<result.length; i++) {
         var option=document.createElement("option");
         option.text=result[i];
-        try {
-          cat.append(option);
-        } catch (e) {
-          alert(cat.size);
-        }
+        cat.append(option);
       }
     }
   );
 });
 
 newClickHandler("post", function() {
+  alert("post");
   ajaxCall(
     './post.php',
-    { QuestionDesc: $("question_desc").val() },
+    { 
+      question_desc: $("#question_box").val(),
+      category: $("#category").val()
+    },
     null,
     null,
     'post'
@@ -30,7 +32,23 @@ newClickHandler("post", function() {
 newClickHandler("search", function() {
   ajaxCall(
     './post.php',
-    { QuestionDesc: $("question_desc").val() },
+    { 
+      category: $("#category").val()
+    },
+    function(result) {
+      // TODO: find html element and push result to it
+    },
+    null,
+    'post'
+  );
+});
+
+newClickHandler("delete", function() {
+  ajaxCall(
+    './post.php',
+    {
+      question_id: $("#question_id").val()
+    },
     null,
     null,
     'post'
@@ -40,6 +58,9 @@ newClickHandler("search", function() {
 newClickHandler("button1", function() {
   alert("click me");
 });
+
+
+// Helper functions
 
 function newFunc(func) {
   $(document).ready(func);
