@@ -15,12 +15,12 @@ newFunc(function() {
   );
 });
 
-newClickHandler("post", function() {
+newClickHandler("post_button", function() {
   alert("post");
   ajaxCall(
     './post.php',
     { 
-      question_desc: $("#question_box").val(),
+      question_desc: $("#question_text").val(),
       category: $("#category").val()
     },
     null,
@@ -29,7 +29,7 @@ newClickHandler("post", function() {
   );
 });
 
-newClickHandler("search", function() {
+newClickHandler("search_button", function() {
   ajaxCall(
     './post.php',
     { 
@@ -43,7 +43,7 @@ newClickHandler("search", function() {
   );
 });
 
-newClickHandler("delete", function() {
+newClickHandler("delete_button", function() {
   ajaxCall(
     './post.php',
     {
@@ -54,11 +54,6 @@ newClickHandler("delete", function() {
     'post'
   );
 });
-
-newClickHandler("button1", function() {
-  alert("click me");
-});
-
 
 // Helper functions
 
