@@ -20,12 +20,25 @@ function getCategories($con) {
   return json_encode($ret);
 }
 
-//$category = $_POST[''];
-//$description = $_POST[''];
+function postQuestion($con) {
+  $category = $_POST['category'];
+  $description = $_POST['question_desc'];
+  $sql = "INSERT INTO questions (category, description)
+                 VALUES ('" . $category . "','" . $description . "')";
+  mysqli_query($con,$sql);
+}
 
-//$sql ="INSERT INTO questions (category,description) 
-//                values ('" . $category . "','" . $description . "')"
-//mysqli_query($con,$sql);
+function deleteQuestion($con) {
+  $questionID = $_POST['question_id'];
+  $sql = "DELETE FROM question WHERE id = " . $question_id . "";
+  mysqli_query($con,$sql);
+}
+
+
+//function updateQuestion($con) {
+//  $questionID = $_POST['question_id'];
+//  $sql = "UPDATE question SET description ="
+//}
 
 ?>
 
