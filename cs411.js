@@ -20,6 +20,7 @@ newClickHandler("post_button", function() {
   ajaxCall(
     './post.php',
     { 
+      method: 'post_question',
       question_desc: $("#question_text").val(),
       category: $("#category").val()
     },
@@ -47,6 +48,7 @@ newClickHandler("delete_button", function() {
   ajaxCall(
     './post.php',
     {
+      method: 'delete_question',
       question_id: $("#question_id").val()
     },
     null,
