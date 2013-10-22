@@ -9,6 +9,15 @@ if (mysqli_connect_errno()) {
 if ($_GET['request']=='category') {
   echo getCategories($con);
 }
+
+if ($_POST['method']=='post_question') {
+  postQuestion($con);
+}
+
+if ($_POST['method']=='delete_question') {
+  deleteQuestion($con);
+}
+
 function getCategories($con) {
   $sql = "SELECT name FROM categories";
   $result = mysqli_query($con, $sql);
