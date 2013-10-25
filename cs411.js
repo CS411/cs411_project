@@ -5,46 +5,65 @@ newFunc(function() {
     './post.php?request=category',
     null,
     function(result) {
-      alert("update category success");
       var search_cat = $("#search_category");
       var post_cat = $("#post_category");
       for (var i=0; i<result.length; i++) {
-        var option=document.createElement("option");
-        option.text=result[i];
-        search_cat.append(option);
-        post_cat.append(option);
+        var search_option=document.createElement("option");
+        var post_option=document.createElement("option");
+        search_option.text=result[i];
+        post_option.text=result[i];
+        search_cat.append(search_option);
+        post_cat.append(post_option);
       }
     },
-    function() {alert("update category error");}
+    function() {
+      alert("Updating category failed");
+    }
   );
 });
 
 newClickHandler("post_button", function() {
-  alert("post");
+  alert(
+    "post\n"+
+    $("#question_text").val()+"\n"+
+    document.getElementById("post_category").value
+  );
   ajaxCall(
     './post.php',
     { 
       method: 'post_question',
-      question_desc: $("#question_text").val(),
-      category: $("#category").val()
+      category: document.getElementById("post_category").value,
+      question_desc: $("#question_text").val()
     },
-    null,
-    null,
+    function() {
+      alert("success")
+    },
+    function() {
+      alert("failed");
+    },
     'post'
   );
 });
 
 newClickHandler("search_button", function() {
-  alert("search");
+  alert(
+    "search "+
+    document.getElementById("search_category").value
+  );
+  var div = $("#search_result_div");
+  div.empty();
+  div.append("result:\n");
   ajaxCall(
     './post.php',
     { 
-      category: $("#category").val()
+      category: document.getElementById("search_category").value,
     },
     function(result) {
-      // TODO: find html element and push result to it
+      div.append(result);
     },
-    null,
+    function() {
+      alert("failed");
+    },
     'post'
   );
 });
@@ -97,7 +116,7 @@ function ajaxCall(url, data, successCallback, errorCallback, type) {
   $.ajax({
     url: url,
     type: type,
-    dataType: 'json',
+    //dataType: 'json',
     data: data,
     success: successCallback,
     error: errorCallback
