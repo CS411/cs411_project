@@ -5,6 +5,7 @@ newFunc(function() {
     './post.php?request=category',
     null,
     function(result) {
+      alert("update category success");
       var search_cat = $("#search_category");
       var post_cat = $("#post_category");
       for (var i=0; i<result.length; i++) {
@@ -13,7 +14,8 @@ newFunc(function() {
         search_cat.append(option);
         post_cat.append(option);
       }
-    }
+    },
+    function() {alert("update category error");}
   );
 });
 
