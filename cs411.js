@@ -46,20 +46,27 @@ newClickHandler("post_button", function() {
 });
 
 newClickHandler("search_button", function() {
-  alert(
-    "search "+
-    document.getElementById("search_category").value
-  );
-  var div = $("#search_result_div");
-  div.empty();
-  div.append("result:\n");
   ajaxCall(
     './post.php',
     { 
+      method: 'search_category',
       category: document.getElementById("search_category").value,
     },
     function(result) {
-      div.append(result);
+      var div = $("#search_result_div");
+      div.empty();
+      if (result.length == 0) {
+        div.append("No result found");
+      } else {
+        div.append(result.length+" results:<br>");
+        for (var i=0; i<result.length; i++) {
+          div.append(
+            newButton(i, "edit")+
+            newButton(i, "delete")+
+            " "+result[i]+"<br>"
+          );
+        }
+      }
     },
     function() {
       alert("failed");
@@ -121,4 +128,8 @@ function ajaxCall(url, data, successCallback, errorCallback, type) {
     success: successCallback,
     error: errorCallback
   });
+}
+
+function newButton(id, text) {
+  return "<button id=\""+id+"\" type=\"button\">"+text+"</button>";
 }
