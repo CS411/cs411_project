@@ -5,44 +5,69 @@ newFunc(function() {
     './post.php?request=category',
     null,
     function(result) {
-      alert("update category success");
       var search_cat = $("#search_category");
       var post_cat = $("#post_category");
       for (var i=0; i<result.length; i++) {
-        var option=document.createElement("option");
-        option.text=result[i];
-        search_cat.append(option);
-        post_cat.append(option);
+        var search_option=document.createElement("option");
+        var post_option=document.createElement("option");
+        search_option.text=result[i];
+        post_option.text=result[i];
+        search_cat.append(search_option);
+        post_cat.append(post_option);
       }
     },
-    function() {alert("update category error");}
+    function() {
+      alert("Updating category failed");
+    }
   );
 });
 
 newClickHandler("post_button", function() {
-  alert("post");
-  ajaxCall(
+  alert(
+    "post\n"+
+    $("#question_text").val()+"\n"+
+    document.getElementById("post_category").value
+  );
+  $.ajax({
+    url: "./post.php",
+    type: 'post',
+    dataType: 'json',
+    data: {
+      method: "post_question",
+      category: document.getElementById("post_category").value,
+      question_desc: $("#question_text").val()
+    },
+    success: function() {
+      alert("success");
+    },
+    error: function() {
+      alert("failed");
+    }
+  });
+  /*ajaxCall(
     './post.php',
     { 
       method: 'post_question',
-      question_desc: $("#question_text").val(),
-      category: $("#category").val()
+      category: document.getElementById("post_category").value,
+      question_desc: $("#question_text").val()
     },
     null,
-    null,
+    function() {alert("post error");},
     'post'
-  );
+  );*/
 });
 
 newClickHandler("search_button", function() {
   alert("search");
+  var search_div = $("#search_div");
+  search_div.append("search result");
   ajaxCall(
     './post.php',
     { 
       category: $("#category").val()
     },
     function(result) {
-      // TODO: find html element and push result to it
+      search_div.append(result);
     },
     null,
     'post'
