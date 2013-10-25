@@ -31,6 +31,7 @@ newClickHandler("post_button", function() {
 });
 
 newClickHandler("search_button", function() {
+  alert("search");
   ajaxCall(
     './post.php',
     { 
@@ -45,6 +46,7 @@ newClickHandler("search_button", function() {
 });
 
 newClickHandler("delete_button", function() {
+  alert("delete");
   ajaxCall(
     './post.php',
     {
