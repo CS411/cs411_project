@@ -23,11 +23,11 @@ newFunc(function() {
 });
 
 newClickHandler("post_button", function() {
-  alert(
+  /*alert(
     "post\n"+
     $("#question_text").val()+"\n"+
     document.getElementById("post_category").value
-  );
+  );*/
   ajaxCall(
     './post.php',
     { 
