@@ -28,48 +28,42 @@ newClickHandler("post_button", function() {
     $("#question_text").val()+"\n"+
     document.getElementById("post_category").value
   );
-  $.ajax({
-    url: "./post.php",
-    type: 'post',
-    dataType: 'json',
-    data: {
-      method: "post_question",
-      category: document.getElementById("post_category").value,
-      question_desc: $("#question_text").val()
-    },
-    success: function() {
-      alert("success");
-    },
-    error: function() {
-      alert("failed");
-    }
-  });
-  /*ajaxCall(
+  ajaxCall(
     './post.php',
     { 
       method: 'post_question',
       category: document.getElementById("post_category").value,
       question_desc: $("#question_text").val()
     },
-    null,
-    function() {alert("post error");},
+    function() {
+      alert("success")
+    },
+    function() {
+      alert("failed");
+    },
     'post'
-  );*/
+  );
 });
 
 newClickHandler("search_button", function() {
-  alert("search");
-  var search_div = $("#search_div");
-  search_div.append("search result");
+  alert(
+    "search "+
+    document.getElementById("search_category").value
+  );
+  var div = $("#search_result_div");
+  div.empty();
+  div.append("result:\n");
   ajaxCall(
     './post.php',
     { 
-      category: $("#category").val()
+      category: document.getElementById("search_category").value,
     },
     function(result) {
-      search_div.append(result);
+      div.append(result);
     },
-    null,
+    function() {
+      alert("failed");
+    },
     'post'
   );
 });
@@ -122,7 +116,7 @@ function ajaxCall(url, data, successCallback, errorCallback, type) {
   $.ajax({
     url: url,
     type: type,
-    dataType: 'json',
+    //dataType: 'json',
     data: data,
     success: successCallback,
     error: errorCallback
