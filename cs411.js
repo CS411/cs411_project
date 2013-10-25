@@ -77,6 +77,12 @@ newClickHandler("search_button", function() {
   );
 });
 
+newClickHandler("see_question_button", function() {
+  var div = $("#search_result_div");
+  div.empty();
+  div.appent("question desc");
+});
+
 newClickHandler("update_button", function() {
   alert("update");
   ajaxCall(
@@ -106,6 +112,10 @@ newClickHandler("delete_button", function() {
 });
 
 // Helper functions
+
+function getQuestionDesc(question_id) {
+  return "question_desc";
+}
 
 function newFunc(func) {
   $(document).ready(func);
