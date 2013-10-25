@@ -51,11 +51,14 @@ function deleteQuestion($con) {
 
 function searchCategory($con) {
   $category = $_POST['category'];
-  $sql = "SELECT description FROM questions WHERE category = '" . $category . "'";
+  $sql = "SELECT ID, description FROM questions WHERE category = '" . $category . "'";
   $result = mysqli_query($con,$sql);
   $ret = array();
   while($row = mysqli_fetch_array($result)) {
-    array_push($ret, $row['description']);
+    $tmp = array();
+    $tmp['ID'] = $row['ID'];
+    $tmp['description'] = $row['description'];
+    array_push($ret,$tmp);
   }
   header('Content-type: application/json');
   return json_encode($ret); 
