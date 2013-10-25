@@ -5,11 +5,13 @@ newFunc(function() {
     './post.php?request=category',
     null,
     function(result) {
-      var cat = $("#category");
+      var search_cat = $("#search_category");
+      var post_cat = $("#post_category");
       for (var i=0; i<result.length; i++) {
         var option=document.createElement("option");
         option.text=result[i];
-        cat.append(option);
+        search_cat.append(option);
+        post_cat.append(option);
       }
     }
   );
@@ -40,6 +42,20 @@ newClickHandler("search_button", function() {
     function(result) {
       // TODO: find html element and push result to it
     },
+    null,
+    'post'
+  );
+});
+
+newClickHandler("update_button", function() {
+  alert("update");
+  ajaxCall(
+    './post.php',
+    {
+      question_id: $("#question_id").val(),
+      question_desc: $("#question_text").val()
+    },
+    null,
     null,
     'post'
   );
