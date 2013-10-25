@@ -19,14 +19,14 @@ if ($_POST['method']=='delete_question') {
 }
 
 if ($_POST['method']=='search_category') {
-  searchCategory($con);
+  echo searchCategory($con);
 }
 
 function getCategories($con) {
   $sql = "SELECT name FROM categories";
   $result = mysqli_query($con, $sql);
   $ret = array();
-  while ($row = mysqli_fetch_array($result)){
+  while ($row = mysqli_fetch_array($result)) {
     array_push($ret, $row['name']);
   }
   header('Content-type: application/json');
@@ -51,14 +51,14 @@ function deleteQuestion($con) {
 
 function searchCategory($con) {
   $category = $_POST['category'];
-  $sql = "SELECT description FROM questions WHERE category = " . $category . "";
+  $sql = "SELECT description FROM questions WHERE category = '" . $category . "'";
   $result = mysqli_query($con,$sql);
-  var_dump($result);
-
-//  echo mysqli_fetch_array($result);
-//  while($row = mysqli_fetch_array($result)) {
-//    var_dump $row;
-//  }
+  $ret = array();
+  while($row = mysqli_fetch_array($result)) {
+    array_push($ret, $row['description']);
+  }
+  header('Content-type: application/json');
+  return json_encode($ret); 
 }
 
 //function updateQuestion($con) {
