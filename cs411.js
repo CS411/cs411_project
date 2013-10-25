@@ -26,13 +26,13 @@ newClickHandler("post_button", function() {
   /*alert(
     "post\n"+
     $("#question_text").val()+"\n"+
-    document.getElementById("post_category").value
+    $("#post_category").val()
   );*/
   ajaxCall(
     './post.php',
     { 
       method: 'post_question',
-      category: document.getElementById("post_category").value,
+      category: $("#post_category").val(),
       question_desc: $("#question_text").val()
     },
     function() {
@@ -50,7 +50,7 @@ newClickHandler("search_button", function() {
     './post.php',
     { 
       method: 'search_category',
-      category: document.getElementById("search_category").value,
+      category: $("#search_category").val(),
     },
     function(result) {
       var div = $("#search_result_div");
