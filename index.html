@@ -4,30 +4,63 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="./cs411.js"></script>
 <link rel="stylesheet" type="text/css" href="./cs411.css" />
+
+
+
 <body>
-<span>Question description</span>
-<p>Please post your question.</p>
-</br>
 
-<form action="???">
-<textarea class= "main-question" id= "question">
-Type your question here.
-</textarea>
-<br />
-<button id="post" type="button">
-Post</button>
-  <span>Category</span>
-</form>
+<h1>Interview Gurus</h1>
 
-<select id="category">
+<script src="http://code.jquery.com/jquery.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="bootstrap/css/bootstrap.css"></script>
+<ul class="nav nav-pills">
+  <li class="active">
+    <a href="#Home">Home</a>
+     <div id="home_div">Home
 
-</select>
-</br>
-<button id="button1" type="button">Click Me!</button>
+     </div>
+  </li>
 
-<br>
-Question ID: <input type="text" name="">
-<button id="button2" type="button">delete </button>
+  <li><a href="#Search">Search</a></li>
+    <div id="search_div">Search
+         <br>
+            <button id="search_button" type="button">Search</button>
+            <span>Category</span>
+            <select id="category">...</select>
+         </br>
+
+
+    </div>
+
+
+  <li><a href="#Post">Post</a></li>
+    <div id="post_div">
+      <form action="???">
+         <textarea class="main-question" id="question_text">Type your question here.</textarea>
+         <br>
+	    <button id="post_button" type="button">Post</button>
+	    <span>Category</span>
+	    <select id="post_category">...</select>
+         </br>
+    </div>
+<!--
+  <li><a href="#Update">Update</a></li>
+    <div id="update_div">
+      <form action="???">
+	<textarea class="update_question" id="update_text">Update your question.</textarea>
+	<br>
+	   <button id="update_button" type="button">Update</button>
+	   <span>Category</span>
+	   <select id="update_category">...</select>
+	</br>
+    </div>
+
+</ul>
+-->
+<!--The search button, it currently links to google.com -->
+<a href="http://www.google.com"><button id="search_button" type="button">Search for questions</button></a>
+
 
 </body>
 

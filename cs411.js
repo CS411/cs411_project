@@ -5,13 +5,17 @@ newFunc(function() {
     './post.php?request=category',
     null,
     function(result) {
-      var cat = $("#category");
+      alert("update category success");
+      var search_cat = $("#search_category");
+      var post_cat = $("#post_category");
       for (var i=0; i<result.length; i++) {
         var option=document.createElement("option");
         option.text=result[i];
-        cat.append(option);
+        search_cat.append(option);
+        post_cat.append(option);
       }
-    }
+    },
+    function() {alert("update category error");}
   );
 });
 
@@ -31,6 +35,7 @@ newClickHandler("post_button", function() {
 });
 
 newClickHandler("search_button", function() {
+  alert("search");
   ajaxCall(
     './post.php',
     { 
@@ -44,7 +49,22 @@ newClickHandler("search_button", function() {
   );
 });
 
+newClickHandler("update_button", function() {
+  alert("update");
+  ajaxCall(
+    './post.php',
+    {
+      question_id: $("#question_id").val(),
+      question_desc: $("#question_text").val()
+    },
+    null,
+    null,
+    'post'
+  );
+});
+
 newClickHandler("delete_button", function() {
+  alert("delete");
   ajaxCall(
     './post.php',
     {

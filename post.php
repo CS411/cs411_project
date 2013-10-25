@@ -7,7 +7,7 @@ if (mysqli_connect_errno()) {
 }
 
 if ($_GET['request']=='category') {
-  getCategories($con);
+  echo getCategories($con);
 }
 
 if ($_POST['method']=='post_question') {
