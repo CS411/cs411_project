@@ -57,15 +57,17 @@ newClickHandler("search_button", function() {
       div.empty();
       if (result.length == 0) {
         div.append("No result found");
+      } else if (result.length == 1) {
+        div.append("1 result:<br>");
       } else {
         div.append(result.length+" results:<br>");
-        for (var i=0; i<result.length; i++) {
-          div.append(
-            newButton(i, "edit")+
-            newButton(i, "delete")+
-            " "+result[i]+"<br>"
-          );
-        }
+      }
+      for (var i=0; i<result.length; i++) {
+        div.append(
+          newButton(i, "edit")+
+          newButton(i, "delete")+
+          " "+result[i]+"<br>"
+        );
       }
     },
     function() {
