@@ -35,9 +35,10 @@ function getCategories($con) {
 
 function postQuestion($con) {
   $category = $_POST['category'];
+  $title = $_POST['title'];
   $description = $_POST['question_desc'];
-  $sql = "INSERT INTO questions (category, description)
-                 VALUES ('" . $category . "','" . $description . "')";
+  $sql = "INSERT INTO questions (category,title, description)
+                 VALUES ('" . $category . "','" . $title . "','" . $description . "')";
   mysqli_query($con,$sql);
   echo $sql;
 }
@@ -51,11 +52,14 @@ function deleteQuestion($con) {
 
 function searchCategory($con) {
   $category = $_POST['category'];
-  $sql = "SELECT description FROM questions WHERE category = '" . $category . "'";
+  $sql = "SELECT ID, title FROM questions WHERE category = '" . $category . "'";
   $result = mysqli_query($con,$sql);
   $ret = array();
   while($row = mysqli_fetch_array($result)) {
-    array_push($ret, $row['description']);
+    $tmp = array();
+    $tmp['ID'] = $row['ID'];
+    $tmp['title'] = $row['title'];
+    array_push($ret,$tmp);
   }
   header('Content-type: application/json');
   return json_encode($ret); 
