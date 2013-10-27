@@ -33,6 +33,7 @@ newClickHandler("post_button", function() {
     { 
       method: 'post_question',
       category: $("#post_category").val(),
+      title: $("#question_title_text").val(),
       question_desc: $("#question_text").val()
     },
     function() {
@@ -63,12 +64,16 @@ newClickHandler("search_button", function() {
         div.append(result.length+" results:<br>");
       }
       for (var i=0; i<result.length; i++) {
-        div.append(
-          newButton(i, "edit")+
-          newButton(i, "delete")+
-          " "+result[i]+"<br>"
-        );
+        var button = 
+          $("<button></button>")
+            .append("see")
+            .attr('id', result[i]['ID'])
+            .addClass("see_button");
+        div.append(button).append(result[i]['title']+"<br>");
       }
+      $('.see_button').click(function(){
+        alert("ya");
+      });
     },
     function() {
       alert("failed");

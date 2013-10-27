@@ -1,4 +1,8 @@
-.main-question{
+.post_div .title {
+  width: 600px;
+}
+
+.post_div .main-question{
 	height: 200px;
 	width: 600px;
 }
