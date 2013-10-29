@@ -3,6 +3,17 @@
 $(document).ready(_init);
 
 function _init() {
+  var search_div = $("#search_div").hide();
+  var post_div = $("#post_div").hide();
+  $("#search_href").click(function() {
+    search_div.show();
+    post_div.hide();
+  });
+  $("#post_href").click(function() {
+    post_div.show();
+    search_div.hide();
+  });
+
   $("#search_button").click(_handle_search_button_click);
   $("#post_button").click(_handle_post_button_click);
   ajax_call(
@@ -12,12 +23,14 @@ function _init() {
       var search_cat = $("#search_category");
       var post_cat = $("#post_category");
       for (var i=0; i<result.length; i++) {
-        var search_option=document.createElement("option");
-        var post_option=document.createElement("option");
-        search_option.text=result[i];
-        post_option.text=result[i];
-        search_cat.append(search_option);
-        post_cat.append(post_option);
+        search_cat.append(
+          $("<option></option>")
+          .append(result[i])
+        );
+        post_cat.append(
+          $("<option></option>")
+          .append(result[i])
+        );
       }
     },
     function() {
@@ -41,7 +54,6 @@ function ajax_call(url, data, successCallback, errorCallback, type) {
 }
 
 function _handle_search_button_click() {
-  $("#search_div").show();
   ajax_call(
     "./post.php",
     { 
