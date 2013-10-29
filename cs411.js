@@ -84,7 +84,7 @@ function _handle_see_button_click() {
   search_result_div
     .append(edit_button)
     .append(delete_button)
-    .append("<br>question description of question id = "+id+"\n"+desc);
+    .append("<br>"+desc);
   $("#edit_button").click(_handle_edit_button_click);
   $("#delete_button").click(_handle_delete_button_click);
 }
