@@ -1,8 +1,12 @@
 // This function finds the list of categories and push them into the drop down
 // list
-newFunc(function() {
-  ajaxCall(
-    './post.php?request=category',
+$(document).ready(_init);
+
+function _init() {
+  $("#search_button").click(_handle_search_button_click);
+  $("#post_button").click(_handle_post_button_click);
+  ajax_call(
+    "./post.php?request=category",
     null,
     function(result) {
       var search_cat = $("#search_category");
@@ -20,37 +24,28 @@ newFunc(function() {
       alert("Updating category failed");
     }
   );
-});
+}
 
-newClickHandler("post_button", function() {
-  /*alert(
-    "post\n"+
-    $("#question_text").val()+"\n"+
-    $("#post_category").val()
-  );*/
-  ajaxCall(
-    './post.php',
-    { 
-      method: 'post_question',
-      category: $("#post_category").val(),
-      title: $("#question_title_text").val(),
-      question_desc: $("#question_text").val()
-    },
-    function() {
-      alert("success")
-    },
-    function() {
-      alert("failed");
-    },
-    'post'
-  );
-});
+function ajax_call(url, data, successCallback, errorCallback, type) {
+  if (typeof type === "undefined") {
+    type = "get";
+  }
+  $.ajax({
+    url: url,
+    type: type,
+    //dataType: 'json',
+    data: data,
+    success: successCallback,
+    error: errorCallback
+  });
+}
 
-newClickHandler("search_button", function() {
-  ajaxCall(
-    './post.php',
+function _handle_search_button_click() {
+  $("#search_div").show();
+  ajax_call(
+    "./post.php",
     { 
-      method: 'search_category',
+      method: "search_category",
       category: $("#search_category").val(),
     },
     function(result) {
@@ -64,89 +59,105 @@ newClickHandler("search_button", function() {
         div.append(result.length+" results:<br>");
       }
       for (var i=0; i<result.length; i++) {
-        var button = 
-          $("<button></button>")
-            .append("see")
-            .attr('id', result[i]['ID'])
+        var button =
+          new_button("see")
+            .attr("id", result[i]['ID'])
             .addClass("see_button");
         div.append(button).append(result[i]['title']+"<br>");
       }
-      $('.see_button').click(function(){
-        alert("ya");
-      });
+      $(".see_button").click(_handle_see_button_click);
+    },
+    function(error) {
+      alert("Error: "+error);
+    },
+    "post"
+  );
+}
+
+function _handle_see_button_click() {
+  var search_result_div = $("#search_result_div");
+  search_result_div.empty();
+  var id = $(this).attr("id");
+  var desc = get_question(id);
+  var edit_button = new_button("edit");
+  var delete_button = new_button("delete");
+  search_result_div
+    .append(edit_button)
+    .append(delete_button)
+    .append("<br>question description of question id = "+id+"\n"+desc);
+  $("#edit_button").click(_handle_edit_button_click);
+  $("#delete_button").click(_handle_delete_button_click);
+}
+
+function new_button(label) {
+  return $("<button></button>")
+    .append(label)
+    .attr("id", label+"_button");
+}
+
+function get_question(id) {
+  ajax_call(
+    "./post.php",
+    {
+      method: "get_question_desc"
+    },
+    function(result) {
+      return result;
+    },
+    function(error) {
+      alert("Error: "+error);
+    },
+    "post"
+  );
+}
+
+function _handle_edit_button_click() {
+  alert("edit");
+}
+
+function _handle_post_button_click() {
+  ajax_call(
+    "./post.php",
+    { 
+      method: "post_question",
+      category: $("#post_category").val(),
+      title: $("#question_title_text").val(),
+      question_desc: $("#question_text").val()
+    },
+    function() {
+      alert("success")
     },
     function() {
       alert("failed");
     },
-    'post'
+    "post"
   );
-});
+}
 
-newClickHandler("see_question_button", function() {
-  var div = $("#search_result_div");
-  div.empty();
-  div.appent("question desc");
-});
-
-newClickHandler("update_button", function() {
+function _handle_update_button_click() {
   alert("update");
-  ajaxCall(
-    './post.php',
+  ajax_call(
+    "./post.php",
     {
       question_id: $("#question_id").val(),
       question_desc: $("#question_text").val()
     },
     null,
     null,
-    'post'
+    "post"
   );
-});
+}
 
-newClickHandler("delete_button", function() {
+function _handle_delete_button_click() {
   alert("delete");
-  ajaxCall(
-    './post.php',
+  /*ajax_call(
+    "./post.php",
     {
-      method: 'delete_question',
+      method: "delete_question",
       question_id: $("#question_id").val()
     },
     null,
     null,
-    'post'
-  );
-});
-
-// Helper functions
-
-function getQuestionDesc(question_id) {
-  return "question_desc";
-}
-
-function newFunc(func) {
-  $(document).ready(func);
-}
-
-function newClickHandler(id, callback) {
-  newFunc(function() {
-    id = "#"+id;
-    $(id).click(callback);
-  });
-}
-
-function ajaxCall(url, data, successCallback, errorCallback, type) {
-  if (typeof type === "undefined") {
-    type = 'get';
-  }
-  $.ajax({
-    url: url,
-    type: type,
-    //dataType: 'json',
-    data: data,
-    success: successCallback,
-    error: errorCallback
-  });
-}
-
-function newButton(id, text) {
-  return "<button id=\""+id+"\" type=\"button\">"+text+"</button>";
+    "post"
+  );*/
 }
