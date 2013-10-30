@@ -3,14 +3,21 @@
 $(document).ready(_init);
 
 function _init() {
+  var home_div = $("#home_div").hide();
   var search_div = $("#search_div").hide();
   var post_div = $("#post_div").hide();
+  $("#home_href").click(function() {
+    search_div.hide();
+    post_div.hide();
+  });
   $("#search_href").click(function() {
     search_div.show();
+    home_div.hide();
     post_div.hide();
   });
   $("#post_href").click(function() {
     post_div.show();
+    home_div.hide();
     search_div.hide();
   });
 
