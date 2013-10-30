@@ -4,6 +4,7 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="./cs411.js"></script>
 <link rel="stylesheet" type="text/css" href="./cs411.css" />
+<link rel="stylesheet" type="text/css" href="./bootstrap/css/bootstrap.css" />
 
 <body>
 
@@ -11,21 +12,19 @@
 
 <script src="http://code.jquery.com/jquery.js"></script>
 <script src="bootstrap/js/bootstrap.min.js"></script>
-<script src="bootstrap/css/bootstrap.css"></script>
 
-<ul class="nav nav-pills">
-  <li class="active" />
   <a id="home_href" href="#Home">Home</a>
+  <a id="search_href" href="#Search">Search</a>
+  <a id="post_href" href="#Post">Post</a>
+
   <div id="home_div"></div>
 
-  <li><a id="search_href" href="#Search">Search</a></li>
   <div class="search_div" id="search_div">
     <button id="search_button" type="button">Search</button><br>
     <span>Category</span><select id="search_category">...</select>
     <div id="search_result_div"></div>
   </div>
 
-  <li><a id="post_href" href="#Post">Post</a></li>
   <div class="post_div" id="post_div">
     <button id="post_button" type="button">Post</button><br>
 	  <span>Category:</span><select id="post_category">...</select><br>
@@ -33,7 +32,6 @@
       <textarea class="title" id="question_title_text" rows="1">Type title here</textarea><br>
       <textarea class="main-question" id="question_text">Type your question here</textarea>
   </div>
-</ul>
 <!--
   <li><a href="#Update">Update</a></li>
     <div id="update_div">
