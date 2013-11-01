@@ -9,16 +9,25 @@ function _init() {
   $("#home_href").click(function() {
     search_div.hide();
     post_div.hide();
+    $("#search_href").parent().removeClass("active"); 
+    $("#post_href").parent().removeClass("active"); 
+    $('#home_href').parent().addClass("active"); 
   });
   $("#search_href").click(function() {
     search_div.show();
     home_div.hide();
     post_div.hide();
+    $("#post_href").parent().removeClass("active"); 
+    $("#home_href").parent().removeClass("active"); 
+    $("#search_href").parent().addClass("active"); 
   });
   $("#post_href").click(function() {
     post_div.show();
     home_div.hide();
     search_div.hide();
+    $("#home_href").parent().removeClass("active"); 
+    $("#search_href").parent().removeClass("active"); 
+    $("#post_href").parent().addClass("active"); 
   });
 
   $("#search_button").click(_handle_search_button_click);
