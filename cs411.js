@@ -31,7 +31,7 @@ function _init() {
     $("#post_href").parent().addClass("active"); 
   });
 
- $("#home_button").click(_handle_home_button_click); 
+ 
  $("#search_button").click(_handle_search_button_click);
  $("#post_button").click(_handle_post_button_click);
   ajax_call(
