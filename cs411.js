@@ -3,10 +3,11 @@
 $(document).ready(_init);
 
 function _init() {
-  var home_div = $("#home_div").hide();
+  var home_div = $("#home_div").show();
   var search_div = $("#search_div").hide();
   var post_div = $("#post_div").hide();
   $("#home_href").click(function() {
+    home_div.show();
     search_div.hide();
     post_div.hide();
     $("#search_href").parent().removeClass("active"); 
@@ -30,8 +31,9 @@ function _init() {
     $("#post_href").parent().addClass("active"); 
   });
 
-  $("#search_button").click(_handle_search_button_click);
-  $("#post_button").click(_handle_post_button_click);
+ $("#home_button").click(_handle_home_button_click); 
+ $("#search_button").click(_handle_search_button_click);
+ $("#post_button").click(_handle_post_button_click);
   ajax_call(
     "./post.php?request=category",
     null,
