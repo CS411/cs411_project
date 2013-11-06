@@ -61,7 +61,7 @@ function _handle_home_tab_click() {
 
 function _handle_search_tab_click() {
   $("#search_result_left_div").empty();
-  $("#search_result_right_div").empty();
+  $("#search_result_right_div").hide();
   var search_div = $("#search_div").show();
   var home_div = $("#home_div").hide();
   var post_div = $("#post_div").hide();
@@ -81,7 +81,9 @@ function _handle_post_tab_click() {
 
 function _handle_search_button_click() {
   $("#search_result_left_div").empty();
-  $("#search_result_right_div").empty();
+  $("#search_result_right_div").hide();
+  $("#search_result_right_top_div").empty();
+  $("#search_result_right_bottom_div").empty();
   ajax_call(
     "./post.php",
     { 
@@ -120,10 +122,10 @@ function _handle_search_button_click() {
 }
 
 function _handle_see_button_click() {
-  var div = $("#search_result_right_div");
-  div.empty();
+  $("#search_result_right_top_div").empty();
+  $("#search_result_right_bottom_div").empty();
   var id = $(this).attr("qid");
-  show_question_desc(id, div);
+  show_question_desc(id);
 }
 
 
@@ -133,7 +135,7 @@ function new_button(label) {
     .attr("id", label+"_button");
 }
 
-function show_question_desc(qid, div) {
+function show_question_desc(qid) {
   ajax_call(
     "./post.php",
     {
@@ -141,6 +143,8 @@ function show_question_desc(qid, div) {
       id: qid
     },
     function(result) {
+      $("#search_result_right_div").show();
+      $("#search_result_right_top_div").append(result);
       var edit_button = 
         new_button("edit")
           .attr({
@@ -155,8 +159,7 @@ function show_question_desc(qid, div) {
             "qid": qid
           })
           .addClass("delete_button");
-      div
-        .append(result+"<br>")
+      $("#search_result_right_bottom_div")
         .append(edit_button)
         .append(delete_button);
       $(".edit_button").click(_handle_edit_button_click);
@@ -207,7 +210,7 @@ function _handle_update_button_click() {
 }
 
 function _handle_delete_button_click() {
-  var div = $("#search_result_right_div");
+  var div = $("#search_result_right_bottom_div");
   div.empty();
   var qid = $(this).attr("qid");
   delete_question(qid);
@@ -222,6 +225,7 @@ function delete_question(qid) {
     },
     function() {
       $("#see"+qid).parent().remove();
+      $("#search_result_right_div").hide();
     },
     function() {
       alert("Failed");
