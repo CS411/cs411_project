@@ -49,7 +49,7 @@ function ajax_call(url, data, successCallback, errorCallback, type) {
   });
 }
 
-function() _handle_home_tab_click {
+function _handle_home_tab_click() {
   home_div.show();
   search_div.hide();
   post_div.hide();
@@ -58,7 +58,7 @@ function() _handle_home_tab_click {
   $('#home_href').parent().addClass("active"); 
 }
 
-function() _handle_search_tab_click {
+function _handle_search_tab_click() {
   search_div.show();
   home_div.hide();
   post_div.hide();
@@ -67,7 +67,7 @@ function() _handle_search_tab_click {
   $("#search_href").parent().addClass("active"); 
 }
 
-function() _handle_post_tab_click {
+function _handle_post_tab_click() {
   post_div.show();
   home_div.hide();
   search_div.hide();
