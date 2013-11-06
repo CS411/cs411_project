@@ -124,7 +124,7 @@ function _handle_see_button_click() {
   div
     .append(edit_button)
     .append(delete_button)
-    .append("<br>"+desc);
+    .append("r>"+desc);
   $("#edit_button").click(_handle_edit_button_click);
   $("#delete_button").click(_handle_delete_button_click);
 }
@@ -142,8 +142,7 @@ function get_question(id) {
       method: "get_question_desc"
     },
     function(result) {
-      alert(result);
-      return result['description'];
+      return result;
     },
     function(error) {
       alert("Error: "+error);
