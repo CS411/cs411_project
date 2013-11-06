@@ -142,7 +142,8 @@ function get_question(id) {
       method: "get_question_desc"
     },
     function(result) {
-      return result;
+      alert(result);
+      return result['description'];
     },
     function(error) {
       alert("Error: "+error);
