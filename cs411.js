@@ -14,9 +14,6 @@ function _init() {
   $("#search_button").click(_handle_search_button_click);
   $("#post_button").click(_handle_post_button_click);
 
-  /*$("#question_desc_text").click(function() {
-    $("#question_desc_text").value = '';
-  });*/
   ajax_call(
     "./post.php?request=category",
     null,
@@ -53,15 +50,18 @@ function ajax_call(url, data, successCallback, errorCallback, type) {
 }
 
 function _handle_home_tab_click() {
-  var home_div = $("#home_div").show();
-  var search_div = $("#search_div").hide();
-  var post_div = $("#post_div").hide();
+  $("#home_div").show();
+  $("#search_div").hide();
+
+  $("#post_div").hide();
   $("#search_tab").parent().removeClass("active"); 
   $("#post_tab").parent().removeClass("active"); 
   $('#home_tab').parent().addClass("active"); 
 }
 
 function _handle_search_tab_click() {
+  $("#search_result_left_div").empty();
+  $("#search_result_right_div").empty();
   var search_div = $("#search_div").show();
   var home_div = $("#home_div").hide();
   var post_div = $("#post_div").hide();
@@ -89,21 +89,26 @@ function _handle_search_button_click() {
       category: $("#search_category").val(),
     },
     function(result) {
-      var div = $("#search_result_left_div");
-      div.empty();
+      var left_div = $("#search_result_left_div");
+      left_div.empty();
       if (result.length == 0) {
-        div.append("No result found");
+        left_div.append("No result found");
       } else if (result.length == 1) {
-        div.append("1 result:<br>");
+        left_div.append("1 result:<br>");
       } else {
-        div.append(result.length+" results:<br>");
+        left_div.append(result.length+" results:<br>");
       }
       for (var i=0; i<result.length; i++) {
         var button =
           new_button("see")
-            .attr("id", result[i]['ID'])
+            .attr({
+              "id": "see"+result[i]['ID'],
+              "qid": result[i]['ID']
+            })
             .addClass("see_button");
-        div.append(button).append(" "+result[i]['title']+"<br>");
+        var item = $("<div></div>")
+          .append(button).append(" "+result[i]['title']+"<br>");
+        left_div.append(item);
       }
       $(".see_button").click(_handle_see_button_click);
     },
@@ -117,7 +122,7 @@ function _handle_search_button_click() {
 function _handle_see_button_click() {
   var div = $("#search_result_right_div");
   div.empty();
-  var id = $(this).attr("id");
+  var id = $(this).attr("qid");
   show_question_desc(id, div);
 }
 
@@ -128,22 +133,34 @@ function new_button(label) {
     .attr("id", label+"_button");
 }
 
-function show_question_desc(id, div) {
+function show_question_desc(qid, div) {
   ajax_call(
     "./post.php",
     {
       method: "get_question_desc",
-      id: id
+      id: qid
     },
     function(result) {
-      var edit_button = new_button("edit");
-      var delete_button = new_button("delete");
+      var edit_button = 
+        new_button("edit")
+          .attr({
+            "id": "edit"+qid,
+            "qid": qid
+          })
+          .addClass("edit_button");
+      var delete_button = 
+        new_button("delete")
+          .attr({
+            "id": "delete"+qid,
+            "qid": qid
+          })
+          .addClass("delete_button");
       div
+        .append(result+"<br>")
         .append(edit_button)
-        .append(delete_button)
-        .append("<br>"+result);
-      $("#edit_button").click(_handle_edit_button_click);
-      $("#delete_button").click(_handle_delete_button_click);
+        .append(delete_button);
+      $(".edit_button").click(_handle_edit_button_click);
+      $(".delete_button").click(_handle_delete_button_click);
     },
     function(error) {
       alert("Error: "+error);
@@ -189,16 +206,26 @@ function _handle_update_button_click() {
   );
 }
 
-function _handle_delete_button_click(id) {
-  alert("delete");
-  /*ajax_call(
+function _handle_delete_button_click() {
+  var div = $("#search_result_right_div");
+  div.empty();
+  var qid = $(this).attr("qid");
+  delete_question(qid);
+}
+
+function delete_question(qid) {
+  ajax_call(
     "./post.php",
     {
       method: "delete_question",
-      question_id: $("#question_id").val()
+      question_id: qid
     },
-    null,
-    null,
+    function() {
+      $("#see"+qid).parent().remove();
+    },
+    function() {
+      alert("Failed");
+    },
     "post"
-  );*/
+  );
 }
