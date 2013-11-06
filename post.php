@@ -74,7 +74,8 @@ function searchID($con) {
   $sql = "SELECT description FROM questions Where id = '" . $id . "' ";
   $result = mysqli_query($con,$sql);
   $row = mysqli_fetch_array($result);
-  $ret = $row['description'];
+  $ret = array();
+  $ret['description'] = $row['description'];
   header('Content-type: application/json');
   return json_encode($ret); 
 }
