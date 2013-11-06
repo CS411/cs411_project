@@ -50,27 +50,27 @@ function ajax_call(url, data, successCallback, errorCallback, type) {
 }
 
 function _handle_home_tab_click() {
-  home_div.show();
-  search_div.hide();
-  post_div.hide();
+  var home_div = $("#home_div").show();
+  var search_div = $("#search_div").hide();
+  var post_div = $("#post_div").hide();
   $("#search_href").parent().removeClass("active"); 
   $("#post_href").parent().removeClass("active"); 
   $('#home_href').parent().addClass("active"); 
 }
 
 function _handle_search_tab_click() {
-  search_div.show();
-  home_div.hide();
-  post_div.hide();
+  var search_div = $("#search_div").show();
+  var home_div = $("#home_div").hide();
+  var post_div = $("#post_div").hide();
   $("#post_href").parent().removeClass("active"); 
   $("#home_href").parent().removeClass("active"); 
   $("#search_href").parent().addClass("active"); 
 }
 
 function _handle_post_tab_click() {
-  post_div.show();
-  home_div.hide();
-  search_div.hide();
+  var post_div = $("#post_div").show();
+  var search_div = $("#search_div").hide();
+  var home_div = $("#home_div").hide();
   $("#home_href").parent().removeClass("active"); 
   $("#search_href").parent().removeClass("active"); 
   $("#post_href").parent().addClass("active"); 
