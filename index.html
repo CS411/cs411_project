@@ -48,21 +48,51 @@
 	<span>Welcome to Interview Gurus, home to all your software engineering interview needs</span>
    </div>
    <div class="search_div" id="search_div">
-  	<span>Category:</span><select id="search_category">...</select>
-        <div id="search_result_div"></div>
-     <button id="search_button" type="button">Search</button><br>   
+
+     <form class="form-horizontal">
+
+        <div class="control-group">
+          <label class="control-label" for="category">Category:</label>
+          <div class="controls">
+            <select id="search_category">...</select><br>
+            <div id="search_result_div"></div>
+            <button id="search_button" type="button">Search</button><br>   
+       	  </div>
+	 </div>
+      </form> 
    </div>
    <div class="post_div" id="post_div">
-	<span>Category:</span><select id="post_category">...</select><br>
-      <form action="???">
-        <textarea class="title" id="question_title_text" rows="1">Type title here</textarea><br>
-        <textarea class="main-question" id="question_text">Type your question here</textarea>
-      	</br>
-	<button id="post_button" type="button">Post</button><br>	    
+	
+    <form class="form-horizontal">
+
+	<div class="control-group">
+	  <label class="control-label" for="category">Category:</label>
+	  <div class="controls">
+	    <select id="post_category">...</select><br>
+      	  </div>
+	</div>
+	
+	<div class="control-group">
+         <label class="control-label" for="title">Title:</label>
+          <div class="controls">
+	    <textarea class="title" id="question_title_text" rows="1">Type title here</textarea><br>
+          </div>
+	</div>
+	
+	<div class="control-group">
+	  <label class="control-label" for="question">Question:</label>
+	   <div class="controls">
+	    <textarea class="main-question" id="question_text">Type your question here</textarea>
+      	    </br>
+	    <button id="post_button" type="button">Post</button><br>
+	  </div>
+	</div>
+
+    </form>	    
    </div>
   </div><!--end tab-content-->
  </div><!--end container-->
-
+</table>
 </body>
 
 </html>
