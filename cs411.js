@@ -13,6 +13,10 @@ function _init() {
  
   $("#search_button").click(_handle_search_button_click);
   $("#post_button").click(_handle_post_button_click);
+
+  /*$("#question_desc_text").click(function() {
+    $("#question_desc_text").value = '';
+  });*/
   ajax_call(
     "./post.php?request=category",
     null,
@@ -21,12 +25,10 @@ function _init() {
       var post_cat = $("#post_category");
       for (var i=0; i<result.length; i++) {
         search_cat.append(
-          $("<option></option>")
-          .append(result[i])
+          $("<option></option>").append(result[i])
         );
         post_cat.append(
-          $("<option></option>")
-          .append(result[i])
+          $("<option></option>").append(result[i])
         );
       }
     },
@@ -78,6 +80,8 @@ function _handle_post_tab_click() {
 }
 
 function _handle_search_button_click() {
+  $("#search_result_left_div").empty();
+  $("#search_result_right_div").empty();
   ajax_call(
     "./post.php",
     { 
@@ -85,7 +89,7 @@ function _handle_search_button_click() {
       category: $("#search_category").val(),
     },
     function(result) {
-      var div = $("#search_result_div");
+      var div = $("#search_result_left_div");
       div.empty();
       if (result.length == 0) {
         div.append("No result found");
@@ -111,13 +115,13 @@ function _handle_search_button_click() {
 }
 
 function _handle_see_button_click() {
-  var search_result_div = $("#search_result_div");
-  search_result_div.empty();
+  var div = $("#search_result_right_div");
+  div.empty();
   var id = $(this).attr("id");
   var desc = get_question(id);
   var edit_button = new_button("edit");
   var delete_button = new_button("delete");
-  search_result_div
+  div
     .append(edit_button)
     .append(delete_button)
     .append("<br>"+desc);
@@ -161,10 +165,10 @@ function _handle_post_button_click() {
       question_desc: $("#question_text").val()
     },
     function() {
-      alert("success")
+      alert("Succeed")
     },
     function() {
-      alert("failed");
+      alert("Failed");
     },
     "post"
   );
