@@ -3,9 +3,7 @@
 $(document).ready(_init);
 
 function _init() {
-  $("#home_div").show();
-  $("#search_div").hide();
-  $("#post_div").hide();
+  hide_all_tab_but("home");
 
   $("#home_tab").click(_handle_home_tab_click);
   $("#search_tab").click(_handle_search_tab_click);
@@ -21,18 +19,23 @@ function _init() {
       var search_cat = $("#search_category");
       var post_cat = $("#post_category");
       for (var i=0; i<result.length; i++) {
-        search_cat.append(
-          $("<option></option>").append(result[i])
-        );
-        post_cat.append(
-          $("<option></option>").append(result[i])
-        );
+        search_cat.append($("<option></option>").append(result[i]));
+        post_cat.append($("<option></option>").append(result[i]));
       }
     },
     function() {
       alert("Updating category failed");
     }
   );
+}
+
+function hide_all_tab_but(tab) {
+  $("#home_div").hide();
+  $("#search_div").hide();
+  $("#post_div").hide();
+  if (typeof tab != "undefined") {
+    $("#"+tab+"_div").show();
+  }
 }
 
 function ajax_call(url, data, successCallback, errorCallback, type) {
@@ -50,40 +53,41 @@ function ajax_call(url, data, successCallback, errorCallback, type) {
 }
 
 function _handle_home_tab_click() {
-  $("#home_div").show();
-  $("#search_div").hide();
-
-  $("#post_div").hide();
+  hide_all_tab_but("home");
   $("#search_tab").parent().removeClass("active"); 
   $("#post_tab").parent().removeClass("active"); 
   $('#home_tab').parent().addClass("active"); 
 }
 
 function _handle_search_tab_click() {
-  $("#search_result_left_div").empty();
+  hide_all_tab_but("search");
+  empty_search_result();
   $("#search_result_right_div").hide();
-  var search_div = $("#search_div").show();
-  var home_div = $("#home_div").hide();
-  var post_div = $("#post_div").hide();
   $("#post_tab").parent().removeClass("active"); 
   $("#home_tab").parent().removeClass("active"); 
   $("#search_tab").parent().addClass("active"); 
 }
 
+function empty_search_result_right() {
+  $("#search_result_right_top_div").empty();
+  $("#search_result_right_bottom_div").empty();
+}
+
+function empty_search_result() {
+  $("#search_result_left_div").empty();
+  empty_search_result_right();
+}
+
 function _handle_post_tab_click() {
-  var post_div = $("#post_div").show();
-  var search_div = $("#search_div").hide();
-  var home_div = $("#home_div").hide();
+  hide_all_tab_but("post");
   $("#home_tab").parent().removeClass("active"); 
   $("#search_tab").parent().removeClass("active"); 
   $("#post_tab").parent().addClass("active"); 
 }
 
 function _handle_search_button_click() {
-  $("#search_result_left_div").empty();
+  empty_search_result();
   $("#search_result_right_div").hide();
-  $("#search_result_right_top_div").empty();
-  $("#search_result_right_bottom_div").empty();
   ajax_call(
     "./post.php",
     { 
@@ -91,8 +95,6 @@ function _handle_search_button_click() {
       category: $("#search_category").val(),
     },
     function(result) {
-      var left_div = $("#search_result_left_div");
-      left_div.empty();
       for (var i=0; i<result.length; i++) {
         var button =
           new_button("see")
@@ -102,25 +104,18 @@ function _handle_search_button_click() {
             })
             .addClass("see_button");
         var item = $("<div></div>")
-          .append(button).append(" "+result[i]['title']+"<br>");
-        left_div.append(item);
+          .append(button)
+          .append(" "+result[i]['title']);
+        $("#search_result_left_div").append(item);
       }
       $(".see_button").click(_handle_see_button_click);
     },
     function(error) {
-      alert("Error: "+error);
+      alert("Searching failed");
     },
     "post"
   );
 }
-
-function _handle_see_button_click() {
-  $("#search_result_right_top_div").empty();
-  $("#search_result_right_bottom_div").empty();
-  var id = $(this).attr("qid");
-  show_question_desc(id);
-}
-
 
 function new_button(label) {
   return $("<button></button>")
@@ -128,7 +123,9 @@ function new_button(label) {
     .attr("id", label+"_button");
 }
 
-function show_question_desc(qid) {
+function _handle_see_button_click() {
+  empty_search_result_right();
+  var qid = $(this).attr("qid");
   ajax_call(
     "./post.php",
     {
@@ -159,7 +156,7 @@ function show_question_desc(qid) {
       $(".delete_button").click(_handle_delete_button_click);
     },
     function(error, response) {
-      alert("Error: "+error);
+      alert("Showing question failed");
     },
     "post"
   );
@@ -170,15 +167,19 @@ function _handle_edit_button_click() {
 }
 
 function _handle_post_button_click() {
+  var question_title = $("#question_title_text");
+  var question_desc = $("#question_text");
   ajax_call(
     "./post.php",
     { 
       method: "post_question",
       category: $("#post_category").val(),
-      title: $("#question_title_text").val(),
-      question_desc: $("#question_text").val()
+      title: question_title.val(),
+      question_desc: question_desc.val()
     },
     function() {
+      question_title.val("");
+      question_desc.val("");
       alert("Succeed")
     },
     function() {
@@ -188,28 +189,8 @@ function _handle_post_button_click() {
   );
 }
 
-function _handle_update_button_click() {
-  alert("update");
-  ajax_call(
-    "./post.php",
-    {
-      question_id: $("#question_id").val(),
-      question_desc: $("#question_text").val()
-    },
-    null,
-    null,
-    "post"
-  );
-}
-
 function _handle_delete_button_click() {
-  var div = $("#search_result_right_bottom_div");
-  div.empty();
   var qid = $(this).attr("qid");
-  delete_question(qid);
-}
-
-function delete_question(qid) {
   ajax_call(
     "./post.php",
     {
@@ -218,6 +199,7 @@ function delete_question(qid) {
     },
     function() {
       $("#see"+qid).parent().remove();
+      empty_search_result_right();
       $("#search_result_right_div").hide();
     },
     function() {
