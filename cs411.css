@@ -6,3 +6,15 @@
 	height: 200px;
 	width: 600px;
 }
+.horizontal{
+  float: left;
+}
+.main-div{
+  height: 1000px;
+  width: 580px;
+  margin-left: 53px;
+  background-color: #CEFFCE;
+}
+.sub-div{
+  width: 300px;
+}
