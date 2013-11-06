@@ -93,13 +93,6 @@ function _handle_search_button_click() {
     function(result) {
       var left_div = $("#search_result_left_div");
       left_div.empty();
-      if (result.length == 0) {
-        left_div.append("No result found");
-      } else if (result.length == 1) {
-        left_div.append("1 result:<br>");
-      } else {
-        left_div.append(result.length+" results:<br>");
-      }
       for (var i=0; i<result.length; i++) {
         var button =
           new_button("see")
