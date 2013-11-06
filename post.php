@@ -22,6 +22,10 @@ if ($_POST['method']=='search_category') {
   echo searchCategory($con);
 }
 
+if ($_POST['method'] == 'get_question_desc') {
+  echo searchID($con);
+}
+
 function getCategories($con) {
   $sql = "SELECT name FROM categories";
   $result = mysqli_query($con, $sql);
@@ -65,6 +69,15 @@ function searchCategory($con) {
   return json_encode($ret); 
 }
 
+function searchID($con) {
+  $id = $_POST['id'];
+  $sql = "SELECT description FROM questions Where id = '" . $id . "' ";
+  $result = mysqli_query($con,$sql);
+  $row = mysqli_fetch_array($result);
+  $ret = $row['description'];
+  header('Content-type: application/json');
+  return json_encode($ret); 
+}
 //function updateQuestion($con) {
 //  $questionID = $_POST['question_id'];
 //  $description = $_POST['']

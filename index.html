@@ -37,9 +37,9 @@
 
  <div class="container">
             <div class="nav nav-tabs" id="myTab">
- 		 <li class=active> <a id="home_href" href="#Home" data-toggle="tab">Home</a></li>
-		 <li><a id="search_href" href="#Search" data-toggle="tab">Search</a></li>
-		 <li><a id="post_href" href="#Post" data-toggle="tab">Post</a></li>
+ 		 <li class=active> <a id="home_tab" href="#Home" data-toggle="tab">Home</a></li>
+		 <li><a id="search_tab" href="#Search" data-toggle="tab">Search</a></li>
+		 <li><a id="post_tab" href="#Post" data-toggle="tab">Post</a></li>
             </div> 
 
  <div class="tab-content">
@@ -48,6 +48,7 @@
 	<span>Welcome to Interview Gurus, home to all your software engineering interview needs</span>
    </div>
    <div class="search_div" id="search_div">
+
 
      <form class="form-horizontal">
 
@@ -89,6 +90,30 @@
 	</div>
 
     </form>	    
+
+  	<span>Category:</span><select id="search_category">...</select>
+      <button id="search_button" type="button">Search</button><br>   
+      <div id="search_result_div">
+        <div id="search_result_left_div"></div>
+        <div id="search_result_right_div"></div>
+    </div>
+   </div>
+   <div class="post_div" id="post_div">
+	<span>Category:</span><select id="post_category">...</select><br>
+      <form action="???">
+        <textarea
+          placeholder="Type title here"
+          class="title" 
+          id="question_title_text" 
+          rows="1"
+          placeholder="Please describe why"></textarea>
+      <br>
+      <textarea 
+        placeholder="Type your question here"
+        class="main-question" 
+        id="question_text"></textarea>
+      	</br>
+	<button id="post_button" type="button">Post</button><br>	    
    </div>
   </div><!--end tab-content-->
  </div><!--end container-->

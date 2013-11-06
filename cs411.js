@@ -3,37 +3,20 @@
 $(document).ready(_init);
 
 function _init() {
-  var home_div = $("#home_div").show();
-  var search_div = $("#search_div").hide();
-  var post_div = $("#post_div").hide();
-  $("#home_href").click(function() {
-    home_div.show();
-    search_div.hide();
-    post_div.hide();
-    $("#search_href").parent().removeClass("active"); 
-    $("#post_href").parent().removeClass("active"); 
-    $('#home_href').parent().addClass("active"); 
-  });
-  $("#search_href").click(function() {
-    search_div.show();
-    home_div.hide();
-    post_div.hide();
-    $("#post_href").parent().removeClass("active"); 
-    $("#home_href").parent().removeClass("active"); 
-    $("#search_href").parent().addClass("active"); 
-  });
-  $("#post_href").click(function() {
-    post_div.show();
-    home_div.hide();
-    search_div.hide();
-    $("#home_href").parent().removeClass("active"); 
-    $("#search_href").parent().removeClass("active"); 
-    $("#post_href").parent().addClass("active"); 
-  });
+  $("#home_div").show();
+  $("#search_div").hide();
+  $("#post_div").hide();
 
+  $("#home_tab").click(_handle_home_tab_click);
+  $("#search_tab").click(_handle_search_tab_click);
+  $("#post_tab").click(_handle_post_tab_click);
  
- $("#search_button").click(_handle_search_button_click);
- $("#post_button").click(_handle_post_button_click);
+  $("#search_button").click(_handle_search_button_click);
+  $("#post_button").click(_handle_post_button_click);
+
+  /*$("#question_desc_text").click(function() {
+    $("#question_desc_text").value = '';
+  });*/
   ajax_call(
     "./post.php?request=category",
     null,
@@ -42,12 +25,10 @@ function _init() {
       var post_cat = $("#post_category");
       for (var i=0; i<result.length; i++) {
         search_cat.append(
-          $("<option></option>")
-          .append(result[i])
+          $("<option></option>").append(result[i])
         );
         post_cat.append(
-          $("<option></option>")
-          .append(result[i])
+          $("<option></option>").append(result[i])
         );
       }
     },
@@ -71,7 +52,36 @@ function ajax_call(url, data, successCallback, errorCallback, type) {
   });
 }
 
+function _handle_home_tab_click() {
+  var home_div = $("#home_div").show();
+  var search_div = $("#search_div").hide();
+  var post_div = $("#post_div").hide();
+  $("#search_tab").parent().removeClass("active"); 
+  $("#post_tab").parent().removeClass("active"); 
+  $('#home_tab').parent().addClass("active"); 
+}
+
+function _handle_search_tab_click() {
+  var search_div = $("#search_div").show();
+  var home_div = $("#home_div").hide();
+  var post_div = $("#post_div").hide();
+  $("#post_tab").parent().removeClass("active"); 
+  $("#home_tab").parent().removeClass("active"); 
+  $("#search_tab").parent().addClass("active"); 
+}
+
+function _handle_post_tab_click() {
+  var post_div = $("#post_div").show();
+  var search_div = $("#search_div").hide();
+  var home_div = $("#home_div").hide();
+  $("#home_tab").parent().removeClass("active"); 
+  $("#search_tab").parent().removeClass("active"); 
+  $("#post_tab").parent().addClass("active"); 
+}
+
 function _handle_search_button_click() {
+  $("#search_result_left_div").empty();
+  $("#search_result_right_div").empty();
   ajax_call(
     "./post.php",
     { 
@@ -79,7 +89,7 @@ function _handle_search_button_click() {
       category: $("#search_category").val(),
     },
     function(result) {
-      var div = $("#search_result_div");
+      var div = $("#search_result_left_div");
       div.empty();
       if (result.length == 0) {
         div.append("No result found");
@@ -93,7 +103,7 @@ function _handle_search_button_click() {
           new_button("see")
             .attr("id", result[i]['ID'])
             .addClass("see_button");
-        div.append(button).append(result[i]['title']+"<br>");
+        div.append(button).append(" "+result[i]['title']+"<br>");
       }
       $(".see_button").click(_handle_see_button_click);
     },
@@ -105,13 +115,13 @@ function _handle_search_button_click() {
 }
 
 function _handle_see_button_click() {
-  var search_result_div = $("#search_result_div");
-  search_result_div.empty();
+  var div = $("#search_result_right_div");
+  div.empty();
   var id = $(this).attr("id");
   var desc = get_question(id);
   var edit_button = new_button("edit");
   var delete_button = new_button("delete");
-  search_result_div
+  div
     .append(edit_button)
     .append(delete_button)
     .append("<br>"+desc);
@@ -155,10 +165,10 @@ function _handle_post_button_click() {
       question_desc: $("#question_text").val()
     },
     function() {
-      alert("success")
+      alert("Succeed")
     },
     function() {
-      alert("failed");
+      alert("Failed");
     },
     "post"
   );
