@@ -118,16 +118,9 @@ function _handle_see_button_click() {
   var div = $("#search_result_right_div");
   div.empty();
   var id = $(this).attr("id");
-  var desc = get_question(id);
-  var edit_button = new_button("edit");
-  var delete_button = new_button("delete");
-  div
-    .append(edit_button)
-    .append(delete_button)
-    .append("r>"+desc);
-  $("#edit_button").click(_handle_edit_button_click);
-  $("#delete_button").click(_handle_delete_button_click);
+  show_question_desc(id, div);
 }
+
 
 function new_button(label) {
   return $("<button></button>")
@@ -135,14 +128,22 @@ function new_button(label) {
     .attr("id", label+"_button");
 }
 
-function get_question(id) {
+function show_question_desc(id, div) {
   ajax_call(
     "./post.php",
     {
-      method: "get_question_desc"
+      method: "get_question_desc",
+      id: id
     },
     function(result) {
-      return result;
+      var edit_button = new_button("edit");
+      var delete_button = new_button("delete");
+      div
+        .append(edit_button)
+        .append(delete_button)
+        .append("<br>"+result);
+      $("#edit_button").click(_handle_edit_button_click);
+      $("#delete_button").click(_handle_delete_button_click);
     },
     function(error) {
       alert("Error: "+error);
@@ -188,7 +189,7 @@ function _handle_update_button_click() {
   );
 }
 
-function _handle_delete_button_click() {
+function _handle_delete_button_click(id) {
   alert("delete");
   /*ajax_call(
     "./post.php",
