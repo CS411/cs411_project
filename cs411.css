@@ -11,9 +11,11 @@
 }
 .main-div{
   width: 580px;
-  margin-left: 53px;
   background-color: #CEFFCE;
 }
 .sub-div{
   width: 300px;
+}
+#search_result_right_div{
+  margin-left: 53px;
 }
