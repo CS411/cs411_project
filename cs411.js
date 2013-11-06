@@ -145,7 +145,7 @@ function show_question_desc(id, div) {
       $("#edit_button").click(_handle_edit_button_click);
       $("#delete_button").click(_handle_delete_button_click);
     },
-    function(error) {
+    function(error, response) {
       alert("Error: "+error);
     },
     "post"
