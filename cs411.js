@@ -3,12 +3,13 @@
 $(document).ready(_init);
 
 function _init() {
-  var home_div = $("#home_div").show();
-  var search_div = $("#search_div").hide();
-  var post_div = $("#post_div").hide();
-  $("#home_href").click(_handle_home_tab_click);
-  $("#search_href").click(_handle_search_tab_click);
-  $("#post_href").click(_handle_post_tab_click);
+  $("#home_div").show();
+  $("#search_div").hide();
+  $("#post_div").hide();
+
+  $("#home_tab").click(_handle_home_tab_click);
+  $("#search_tab").click(_handle_search_tab_click);
+  $("#post_tab").click(_handle_post_tab_click);
  
   $("#search_button").click(_handle_search_button_click);
   $("#post_button").click(_handle_post_button_click);
@@ -53,27 +54,27 @@ function _handle_home_tab_click() {
   var home_div = $("#home_div").show();
   var search_div = $("#search_div").hide();
   var post_div = $("#post_div").hide();
-  $("#search_href").parent().removeClass("active"); 
-  $("#post_href").parent().removeClass("active"); 
-  $('#home_href').parent().addClass("active"); 
+  $("#search_tab").parent().removeClass("active"); 
+  $("#post_tab").parent().removeClass("active"); 
+  $('#home_tab').parent().addClass("active"); 
 }
 
 function _handle_search_tab_click() {
   var search_div = $("#search_div").show();
   var home_div = $("#home_div").hide();
   var post_div = $("#post_div").hide();
-  $("#post_href").parent().removeClass("active"); 
-  $("#home_href").parent().removeClass("active"); 
-  $("#search_href").parent().addClass("active"); 
+  $("#post_tab").parent().removeClass("active"); 
+  $("#home_tab").parent().removeClass("active"); 
+  $("#search_tab").parent().addClass("active"); 
 }
 
 function _handle_post_tab_click() {
   var post_div = $("#post_div").show();
   var search_div = $("#search_div").hide();
   var home_div = $("#home_div").hide();
-  $("#home_href").parent().removeClass("active"); 
-  $("#search_href").parent().removeClass("active"); 
-  $("#post_href").parent().addClass("active"); 
+  $("#home_tab").parent().removeClass("active"); 
+  $("#search_tab").parent().removeClass("active"); 
+  $("#post_tab").parent().addClass("active"); 
 }
 
 function _handle_search_button_click() {
@@ -98,7 +99,7 @@ function _handle_search_button_click() {
           new_button("see")
             .attr("id", result[i]['ID'])
             .addClass("see_button");
-        div.append(button).append(result[i]['title']+"<br>");
+        div.append(button).append(" "+result[i]['title']+"<br>");
       }
       $(".see_button").click(_handle_see_button_click);
     },
