@@ -150,15 +150,15 @@ function _handle_result_item_click() {
         .attr("qid", qid);
       var delete_link = new_link("delete", "delete")
         .attr("qid", qid);
-      var right_div = $("<div></div>")
-        //.addClass("right")
+      var right_div = $("<div align=\"right\"></div>")
+        .addClass("right")
         .append(edit_link)
         .append(" ")
         .append(delete_link);
       var answer_link = new_link("answer", "answer")
         .attr("qid", qid);
       var left_div = $("<div></div>")
-        //.addClass("left")
+        .addClass("left")
         .append(answer_link);
       $("#detail_middle_div")
         .append(left_div)

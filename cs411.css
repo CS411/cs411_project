@@ -25,16 +25,17 @@
 }
 
 .left-right {
+  float: left;
   width: 100%;
 }
 
 .left-right .left {
-  width: 100%;
-  position: absolute;
+  float: left;
+  position: relative;
 }
 
 .left-right .right {
-  margin-right: 0;
-  width: 100%;
-  position: absolute;
+  float: right;
+  text-align: right;
+  position: relative;
 }
