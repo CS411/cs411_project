@@ -3,7 +3,7 @@
 $(document).ready(_init);
 
 function _init() {
-  hide_all_tab_but("home");
+  hide_all_tabs_but("home");
 
   $("#home_tab").click(_handle_home_tab_click);
   $("#search_tab").click(_handle_search_tab_click);
@@ -29,7 +29,7 @@ function _init() {
   );
 }
 
-function hide_all_tab_but(tab) {
+function hide_all_tabs_but(tab) {
   $("#home_div").hide();
   $("#search_div").hide();
   $("#post_div").hide();
@@ -53,14 +53,14 @@ function ajax_call(url, data, successCallback, errorCallback, type) {
 }
 
 function _handle_home_tab_click() {
-  hide_all_tab_but("home");
+  hide_all_tabs_but("home");
   $("#search_tab").parent().removeClass("active"); 
   $("#post_tab").parent().removeClass("active"); 
   $('#home_tab').parent().addClass("active"); 
 }
 
 function _handle_search_tab_click() {
-  hide_all_tab_but("search");
+  hide_all_tabs_but("search");
   empty_search_result();
   $("#search_result_right_div").hide();
   $("#post_tab").parent().removeClass("active"); 
@@ -79,7 +79,7 @@ function empty_search_result() {
 }
 
 function _handle_post_tab_click() {
-  hide_all_tab_but("post");
+  hide_all_tabs_but("post");
   $("#home_tab").parent().removeClass("active"); 
   $("#search_tab").parent().removeClass("active"); 
   $("#post_tab").parent().addClass("active"); 
@@ -168,7 +168,15 @@ function _handle_edit_button_click() {
 
 function _handle_post_button_click() {
   var question_title = $("#question_title_text");
+  if (question_title.val() == "") {
+    alert("Title can not be empty");
+    return;
+  }
   var question_desc = $("#question_text");
+  if (question_desc.val() == "") {
+    alert("Question can not be empty");
+    return;
+  }
   ajax_call(
     "./post.php",
     { 
