@@ -1,21 +1,40 @@
-.post_div .title {
+.post-div .title {
   width: 600px;
 }
 
-.post_div .main-question{
+.post-div .main-question {
 	height: 200px;
 	width: 600px;
 }
-.horizontal{
+
+.horizontal {
   float: left;
 }
-.main-div{
+
+.main-div {
   width: 580px;
   background-color: #CEFFCE;
 }
-.sub-div{
+
+.sub-div {
   width: 300px;
 }
-#search_result_right_div{
+
+#result-detail-div {
   margin-left: 53px;
+}
+
+.left-right {
+  width: 100%;
+}
+
+.left-right .left {
+  width: 100%;
+  position: absolute;
+}
+
+.left-right .right {
+  margin-right: 0;
+  width: 100%;
+  position: absolute;
 }

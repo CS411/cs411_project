@@ -47,7 +47,7 @@
    <div class="home_div" id="home_div">    
 	<span>Welcome to Interview Gurus, home to all your software engineering interview needs</span>
    </div>
-   <div class="search_div" id="search_div">
+   <div id="search_div">
 
         <div class="control-group">
           <label class="control-label" for="category">Category:</label>
@@ -55,17 +55,18 @@
             <select id="search_category">...</select>
             <button id="search_button" type="button">Search</button><br>
             <div id="search_result_div" class="horizontal">
-              <div id="search_result_left_div" class="horizontal sub-div"></div>
-              <div id="search_result_right_div" class="horizontal">
-                <div id="search_result_right_top_div" class="main-div"></div>
-                <div id="search_result_right_bottom_div" align="right"></div>
+              <div id="result_list_div" class="horizontal sub-div"></div>
+              <div id="result_detail_div" class="horizontal">
+                <div id="detail_top_div" class="main-div"></div>
+                <div id="detail_middle_div" class="left-right"></div>
+                <div id="detail_bottom_div" class="main-div"></div>
               </div>
             </div>
           </div>
         </div>
    </div><!--end search division-->
 
-   <div class="post_div" id="post_div">
+   <div class="post-div" id="post_div">
 
         <div class="control-group">
           <label class="control-label" for="category">Category:</label>
@@ -82,7 +83,7 @@
               class="title" 
               id="question_title_text" 
               rows="1"
-              placeholder="Please describe why"></textarea>
+              maxlength="100"></textarea>
           </div>
         </div>
 
@@ -92,7 +93,8 @@
             <textarea 
               placeholder="Type your question here"
               class="main-question" 
-              id="question_text"></textarea>
+              id="question_text"
+              maxlength="1024"></textarea>
             </br>
             <button id="post_button" type="button">Post</button><br>
           </div>
