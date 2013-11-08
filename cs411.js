@@ -24,7 +24,7 @@ function _init() {
       }
     },
     function() {
-      alert("Updating category failed");
+      alert("Updating categories failed");
     }
   );
 }
@@ -95,8 +95,22 @@ function _handle_search_button_click() {
       category: $("#search_category").val(),
     },
     function(result) {
+      var list = $("<ul></ul>")
+        .attr("id", "result_list");
+      $("#search_result_left_div").append(list);
+
       for (var i=0; i<result.length; i++) {
-        var button =
+        var div = $("<div></div>")
+          .addClass("result_content")
+          .append(" "+result[i]['title']);
+        var item = $("<li></li>")
+          .attr({
+            "id": "item"+result[i]['ID'],
+            "qid": result[i]['ID']
+          })
+          .addClass("result_item")
+          .append(div);
+        /*var button =
           new_button("see")
             .attr({
               "id": "see"+result[i]['ID'],
@@ -105,16 +119,57 @@ function _handle_search_button_click() {
             .addClass("see_button");
         var item = $("<div></div>")
           .append(button)
-          .append(" "+result[i]['title']);
-        $("#search_result_left_div").append(item);
+          .append(" "+result[i]['title']);*/
+        list.append(item);
       }
-      $(".see_button").click(_handle_see_button_click);
+      //$(".see_button").click(_handle_see_button_click);
+      $(".result_item").click(_handle_result_list_click);
     },
     function(error) {
       alert("Searching failed");
     },
     "post"
   );
+}
+
+function _handle_result_list_click() {
+  empty_search_result_right();
+  var qid = $(this).attr("qid");
+  ajax_call(
+    "./post.php",
+    {
+      method: "get_question_desc",
+      id: qid
+    },
+    function(result) {
+      $("#search_result_right_div").show();
+      $("#search_result_right_top_div").append(result);
+      var edit_button = 
+        new_button("edit")
+          .attr({
+            "id": "edit"+qid,
+            "qid": qid
+          })
+          .addClass("edit_button");
+      var delete_button = 
+        new_button("delete")
+          .attr({
+            "id": "delete"+qid,
+            "qid": qid
+          })
+          .addClass("delete_button");
+      $("#search_result_right_bottom_div")
+        .append(edit_button)
+        .append(delete_button);
+      $(".edit_button").click(_handle_edit_button_click);
+      $(".delete_button").click(_handle_delete_button_click);
+    },
+    function(error, response) {
+      alert("Showing question failed");
+    },
+    "post"
+  );
+
 }
 
 function new_button(label) {
@@ -206,7 +261,8 @@ function _handle_delete_button_click() {
       question_id: qid
     },
     function() {
-      $("#see"+qid).parent().remove();
+      //$("#see"+qid).parent().remove();
+      $("#item"+qid).remove();
       empty_search_result_right();
       $("#search_result_right_div").hide();
     },
