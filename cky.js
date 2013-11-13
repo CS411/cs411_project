@@ -11,7 +11,11 @@ function _init() {
  
   $("#search_button").click(_handle_search_button_click);
   $("#post_button").click(_handle_post_button_click);
-
+  $("#register").click(function(){
+    window.open("http://cky.cs.illinois.edu/bchiang3/register.php");
+  });
+  
+//  $("#login").click(_handle_login_request);
   ajax_call(
     "./post.php?request=category",
     null,
@@ -28,7 +32,26 @@ function _init() {
     }
   );
 }
+function _handle_login_request(){
+   ajax_call(
+    "./login.php",
+    {
+      id: $("#username").val(),
+      passwd: $("#password").val()
+    },
+    function(result) {
+      //location.href += "member.html";
+      //window.location += "member.html";
+//      $('.navbar-form').remove();
+  //    $('.nav-collapse').append(result);
+    },
+    function(response) {
+      alert("Log in failed");
+    },
+    "post"
+  );
 
+}
 function hide_all_tabs_but(tab) {
   $("#home_div").hide();
   $("#search_div").hide();

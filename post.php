@@ -11,7 +11,7 @@ if ($_GET['request']=='category') {
 }
 
 if ($_POST['method']=='post_question') {
-  postQuestion($con);
+  echo postQuestion($con);
 }
 
 if ($_POST['method']=='delete_question') {
@@ -25,6 +25,8 @@ if ($_POST['method']=='search_category') {
 if ($_POST['method'] == 'get_question_desc') {
   echo searchID($con);
 }
+
+
 
 function getCategories($con) {
   $sql = "SELECT name FROM categories";
@@ -41,10 +43,23 @@ function postQuestion($con) {
   $category = $_POST['category'];
   $title = $_POST['title'];
   $description = $_POST['question_desc'];
+
+//  $uid = $_POST['user_id'];
+  $uid = "caro";
+  $escape_title = mysqli_real_escape_string($con,$title);
+  $escape_description = mysqli_real_escape_string($con,$description);
+
   $sql = "INSERT INTO questions (category,title, description)
-                 VALUES ('" . $category . "','" . $title . "','" . $description . "')";
+    VALUES ('" . $category . "','" . $escape_title . "','" . $escape_description . "')";
   mysqli_query($con,$sql);
-  echo $sql;
+
+  $result = mysqli_query($con,"select @@identity");
+  $row = mysqli_fetch_array($result);
+  $qid = $row[0];
+  $sql = "INSERT INTO asks(username,qid) VALUES ('".$uid."','".$qid."')";
+  mysqli_query($con,$sql);
+  return $sql;
+
 }
 
 function deleteQuestion($con) {
@@ -78,6 +93,8 @@ function searchID($con) {
   header('Content-type: application/json');
   return json_encode($ret); 
 }
+
+
 //function updateQuestion($con) {
 //  $questionID = $_POST['question_id'];
 //  $description = $_POST['']
