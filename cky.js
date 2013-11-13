@@ -161,6 +161,7 @@ function _handle_result_item_click() {
         .addClass("left")
         .append(answer_link);
       $("#detail_middle_div")
+        .addClass("left-right")
         .append(left_div)
         .append(right_div);
       $("#edit").click(_handle_edit_click);
