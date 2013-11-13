@@ -41,8 +41,11 @@ function postQuestion($con) {
   $category = $_POST['category'];
   $title = $_POST['title'];
   $description = $_POST['question_desc'];
+  $escape_title = mysqli_real_escape_string($con,$title);
+  $escape_description = mysqli_real_escape_string($con,$description);
+
   $sql = "INSERT INTO questions (category,title, description)
-                 VALUES ('" . $category . "','" . $title . "','" . $description . "')";
+                 VALUES ('" . $category . "','" . $escape_title . "','" . $escape_description . "')";
   mysqli_query($con,$sql);
   echo $sql;
 }
