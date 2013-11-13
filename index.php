@@ -28,7 +28,7 @@
             <!--  <a id="newuser_href" href="#NewUser">New User</a>-->
 	          <input class="span2" name="username" type="text" placeholder="UserName" id="username">
             <input class="span2" name="passwd" type="password" placeholder="Password" id="password">
-            <input type="submit" name="button" class="btn" id="login">Sign in</button>
+            <input type="submit" name="button" class="btn" id="login"></button>
             </form>
             <button type="submit" class="btn" id="register">Register</button>
         </div>
