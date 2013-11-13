@@ -14,7 +14,7 @@ function _init() {
   $("#register").click(function(){
     window.open("http://cky.cs.illinois.edu/bchiang3/register.php");
   });
-  
+
 //  $("#login").click(_handle_login_request);
   ajax_call(
     "./post.php?request=category",
@@ -224,8 +224,8 @@ function _handle_delete_click() {
 }
 
 function _handle_answer_click() {
-  var textarea = $("<textarea></textarea>");
-  $("#detail_bottom_div").append(textarea);
+  //var textarea = $("<textarea></textarea>");
+  //$("#detail_bottom_div").append(textarea);
 }
 
 function _handle_post_button_click() {
