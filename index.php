@@ -58,9 +58,9 @@
             <div id="search_result_div" class="horizontal">
               <div id="result_list_div" class="horizontal sub-div"></div>
               <div id="result_detail_div" class="horizontal">
-                <div id="detail_top_div" class="main-div"></div>
-                <div id="detail_middle_div" class="left-right"></div>
-                <div id="detail_bottom_div" class="main-div"></div>
+                <div id="detail_question_div" class="main-div"></div>
+                <div id="detail_solutions_div" class="left-right"></div>
+                <div id="post_solution__div" class="main-div"></div>
               </div>
             </div>
           </div>

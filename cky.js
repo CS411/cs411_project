@@ -10,7 +10,8 @@ function _init() {
   $("#post_tab").click(_handle_post_tab_click);
  
   $("#search_button").click(_handle_search_button_click);
-  $("#post_button").click(_handle_post_button_click);
+  $("#post_question_button").click(_handle_post_question_click);
+  $("#post_solution_button").click(_handle_post_solution_click);
   $("#register").click(function(){
     window.open("http://cky.cs.illinois.edu/bchiang3/register.php");
   });
@@ -75,16 +76,19 @@ function ajax_call(url, data, successCallback, errorCallback, type) {
   });
 }
 
-function new_button(content) {
-  return $("<button></button>")
-    .append(content);
+function new_button(content, id) {
+  var button = $("<button></button>").append(content);
+  if (typeof id != "undefined") {
+    return button.attr("id", id);
+  }
+  return button;
 }
 
 function new_link(content, id) {
   var link = $("<a></a>")
     .append(content)
     .css("cursor", "pointer");
-  if (typeof link != "undefined") {
+  if (typeof id != "undefined") {
     return link.attr("id", id);
   }
   return link;
@@ -106,17 +110,6 @@ function _handle_search_tab_click() {
   $("#search_tab").parent().addClass("active"); 
 }
 
-function empty_result_detail() {
-  $("#detail_top_div").empty();
-  $("#detail_middle_div").empty();
-  $("#detail_bottom_div").empty();
-}
-
-function empty_search_result() {
-  $("#result_list_div").empty();
-  empty_result_detail();
-}
-
 function _handle_post_tab_click() {
   hide_all_tabs_but("post");
   $("#home_tab").parent().removeClass("active"); 
@@ -124,11 +117,18 @@ function _handle_post_tab_click() {
   $("#post_tab").parent().addClass("active"); 
 }
 
+function empty_result_detail() {
+  $("#detail_question_div").empty();
+  $("#detail_solution_div").empty();
+  $("#post_solution_div").removeAttr("qid");
+}
+
+function empty_search_result() {
+  $("#result_list_div").empty();
+  empty_result_detail();
+}
+
 function _handle_search_button_click() {
-  empty_search_result();
-  $("#result_detail_div").hide();
-  var list = $("<ul></ul>").attr("id", "result_list");
-  $("#result_list_div").append(list);
   ajax_call(
     "./post.php",
     { 
@@ -136,16 +136,21 @@ function _handle_search_button_click() {
       category: $("#search_category").val(),
     },
     function(result) {
+      empty_search_result();
+      $("#result_detail_div").hide();
+
+      var list = $("<ul></ul>").attr("id", "result_list");
+      $("#result_list_div").append(list);
       for (var i=0; i<result.length; i++) {
         var content = new_link(result[i]['title']);
-        var item_div = $("<div></div>").append(content);
+        var content_div = $("<div></div>").append(content);
         var item = $("<li></li>")
           .attr({
             "id": "item"+result[i]['ID'],
             "qid": result[i]['ID']
           })
           .addClass("result-item")
-          .append(item_div);
+          .append(content_div);
         list.append(item);
       }
       $(".result-item").click(_handle_result_item_click);
@@ -158,77 +163,119 @@ function _handle_search_button_click() {
 }
 
 function _handle_result_item_click() {
-  empty_result_detail();
   var qid = $(this).attr("qid");
   ajax_call(
-    "./post.php",
-    {
-      method: "get_question_desc",
-      id: qid
-    },
-    function(question_desc) {
-      $("#result_detail_div").show();
-      $("#detail_top_div").append(question_desc);
-      var edit_link = new_link("edit", "edit")
+    "./post.php?request=solutions&id="+qid,
+    null,
+    function(solutions) {
+      empty_result_detail();
+      var div = $("#result_detail_div").show();
+
+      var ques_div = $("<div></div>")
+        .attr("id", "detail_question_div")
         .attr("qid", qid);
-      var delete_link = new_link("delete", "delete")
-        .attr("qid", qid);
-      var right_div = $("<div align=\"right\"></div>")
-        .addClass("right")
-        .append(edit_link)
-        .append(" ")
-        .append(delete_link);
-      var answer_link = new_link("answer", "answer")
-        .attr("qid", qid);
-      var left_div = $("<div></div>")
-        .addClass("left")
-        .append(answer_link);
-      $("#detail_middle_div")
-        .addClass("left-right")
-        .append(left_div)
-        .append(right_div);
-      $("#edit").click(_handle_edit_click);
-      $("#delete").click(_handle_delete_click);
-      $("#answer").click(_handle_answer_click);
+      div.append(ques_div);
+      insert_post("question", qid, ques_div);
+
+      for (var i=0; i<solutions.length; i++) {
+        var sid = solutions[i]['ID'];
+        var soln_div = $("<div></div>").attr("sid", sid);
+        div.append(soln_div);
+        insert_post("solution", sid, soln_div);
+      }
+      $(".btn-edit").click(_handle_edit_click);
+      $(".btn-delete").click(_handle_delete_click);
     },
     function(error, response) {
       alert("Showing question failed");
-    },
-    "post"
+    }
   );
-
 }
 
 function _handle_edit_click() {
-  alert("edit");
+  var div = $(this).parent;
+  var text = div.val();
+  var textarea = $("<textarea></textarea>").append(text);
+  var cancel_button = new_button("cancel").addClass("btn-cancel");
+  var submit_button = new_button("submit").addClass("btn-submit");
+  $(".btn-cancel").click(_handle_cancel_click);
+  $(".btn-submit").click(_handle_submit_click);
+  div.empty();
+  div
+    .append(textarea)
+    .append(cancel_button)
+    .append(submit_button);
 }
 
 function _handle_delete_click() {
-  var qid = $(this).attr("qid");
+  var id = $(this).attr("qid");
+  if (id != null) {
+    method = "delete_question";
+  } else {
+    id = $(this.attr("sid"));
+    method = "delete_solution";
+  }
   ajax_call(
     "./post.php",
     {
-      method: "delete_question",
-      question_id: qid
+      method: method,
+      id: id
     },
     function() {
-      $("#item"+qid).remove();
-      empty_result_detail();
-      $("#result_detail_div").hide();
+      if (method == "delete_question") {
+        $("#item"+id).remove();
+        empty_result_detail();
+      } else {
+        $("#soln"+id).remove();
+      }
     },
     function() {
-      alert("Failed");
+      alert("Deleting failed");
     },
     "post"
   );
 }
 
-function _handle_answer_click() {
-  //var textarea = $("<textarea></textarea>");
-  //$("#detail_bottom_div").append(textarea);
+function _handle_cancel_click() {
+  var div = $(this).parent;
+  var qid = div.attr("qid");
+  if (qid != null) {
+    insert_post("question", qid, div);
+  } else {
+    insert_post("solution", div.attr("sid"), div);
+  }
 }
 
-function _handle_post_button_click() {
+function _handle_submit_click() {
+  alert("Submitting");
+}
+
+function _handle_post_solution_click() {
+  alert("Posting solution");
+}
+
+function insert_post(post_type, id, div) {
+  ajax_call(
+    "./post.php?request="+post_type+"&id="+id,
+    null,
+    function(result) {
+      div.empty();
+      var edit_button = new_button("edit").addClass("btn").addClass("btn-success").addClass("btn-edit");
+      var delete_button = new_button("delete").addClass("btn").addClass("btn-danger").addClass("btn-delete");
+      div
+        .append(result)
+        .append(edit_button)
+        .append(delete_button);
+    },
+    function() {
+      alert("Showing post failed");
+    }
+  );
+}
+
+// Post Tab 
+
+function _handle_post_question_click() {
   var question_title = $("#question_title_text");
   if (question_title.val() == "") {
     alert("Title can not be empty");
