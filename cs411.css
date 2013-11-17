@@ -2,10 +2,16 @@
   width: 600px;
 }
 
-.post-div .main-question {
+.post-div {
 	height: 200px;
 	width: 600px;
 }
+
+.text_area {
+	height: 200px;
+	width: 580px;
+}
+
 
 .horizontal {
   float: left;
@@ -13,15 +19,16 @@
 
 .main-div {
   width: 580px;
-  background-color: #CEFFCE;
 }
 
 .sub-div {
   width: 300px;
 }
 
-#result-detail-div {
-  margin-left: 53px;
+#result_detail_div {
+  margin-left: 26px;
+  margin-top: -68px;
+
 }
 
 .left-right {
@@ -42,4 +49,13 @@
 #register{
   margin-left: 340px;
   color: blue;
+}
+#search_button{
+  margin-top: -10px;
+}
+.thumbnail{
+  width: 570px;
+}
+.to_right{
+  text-align: right;
 }

@@ -168,7 +168,7 @@ function _handle_result_item_click() {
     },
     function(question_desc) {
       $("#result_detail_div").show();
-      $("#detail_top_div").append(question_desc);
+      $("#detail_question_div").append(question_desc);
       var edit_link = new_link("edit", "edit")
         .attr("qid", qid);
       var delete_link = new_link("delete", "delete")
@@ -183,7 +183,7 @@ function _handle_result_item_click() {
       var left_div = $("<div></div>")
         .addClass("left")
         .append(answer_link);
-      $("#detail_middle_div")
+      $("#detail_solutions_div")
         .addClass("left-right")
         .append(left_div)
         .append(right_div);
