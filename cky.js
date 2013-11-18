@@ -170,13 +170,10 @@ function _handle_result_item_click() {
     function(solutions) {
       empty_result_detail();
       $("#result_detail_div").show();
-      var div = $("#detail_question_div");
 
-      var ques_div = $("<div></div>")
-        .attr("id", "detail_question_div")
-        .attr("qid", qid);
-      div.append(ques_div);
-      show_post("question", qid, ques_div);
+      var ques_post = $("<div></div>").attr("qid", qid);
+      $("#detail_question_div").append(ques_post);
+      show_post("question", qid, ques_post);
 
       for (var i=0; i<solutions.length; i++) {
         var sid = solutions[i]['ID'];
@@ -196,14 +193,12 @@ function _handle_edit_click() {
   var text = $(div.children().get(0)).text();
   div.empty();
   var textarea = $("<textarea></textarea>").append(text).addClass("edit_area");
-  var cancel_button = new_button("cancel").addClass("btn").addClass("btn-default");
-  var submit_button = new_button("submit").addClass("btn").addClass("btn-success");
+  var cancel_button = new_button("cancel").addClass("btn").addClass("btn-default").addClass("btn-cancel");
+  var submit_button = new_button("submit").addClass("btn").addClass("btn-success").addClass("btn-submit");
+  var button_div = $("<div></div>").append(cancel_button).append(submit_button).addClass("to_right");
+  div.append(textarea).append(button_div);
   $(".btn-cancel").click(_handle_cancel_click);
   $(".btn-submit").click(_handle_submit_click);
-  div
-    .append(textarea)
-    .append(cancel_button)
-    .append(submit_button);
 }
 
 function _handle_delete_click() {
@@ -236,7 +231,7 @@ function _handle_delete_click() {
 }
 
 function _handle_cancel_click() {
-  var div = $(this).parent;
+  var div = $(this).parent().parent();
   var qid = div.attr("qid");
   if (qid != null) {
     show_post("question", qid, div);
@@ -246,7 +241,7 @@ function _handle_cancel_click() {
 }
 
 function _handle_submit_click() {
-  alert("Submitting");
+  alert("submit");
 }
 
 function _handle_post_solution_click() {
@@ -258,8 +253,8 @@ function show_post(post_type, id, div) {
     "./post.php?request="+post_type+"&id="+id,
     null,
     function(result) {
-      div.addClass("thumbnail");
       div.empty();
+      div.addClass("thumbnail");
       var span = $("<span></span>").append(result).attr("id", "span"+id);
       var edit_button = new_button("edit").addClass("btn").addClass("btn-success").addClass("btn-edit");
       var delete_button = new_button("delete").addClass("btn").addClass("btn-danger").addClass("btn-delete");
