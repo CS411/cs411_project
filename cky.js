@@ -193,20 +193,17 @@ function _handle_result_item_click() {
 
 function _handle_edit_click() {
   var div = $(this).parent().parent();
-  //var parent_div = div.parent()
-  var span = parent_div.children()[0];
-  //parent_div.append(span);
-  div.after()
-  var textarea = $("<textarea></textarea>").append(span);
-  var cancel_button = new_button("cancel").addClass("btn").addClass("btn-cancel");
-  var submit_button = new_button("submit").addClass("btn").addClass("btn-submit");
+  var text = $(div.children().get(0)).text();
+  div.empty();
+  var textarea = $("<textarea></textarea>").append(text).addClass("edit_area");
+  var cancel_button = new_button("cancel").addClass("btn").addClass("btn-default");
+  var submit_button = new_button("submit").addClass("btn").addClass("btn-success");
   $(".btn-cancel").click(_handle_cancel_click);
   $(".btn-submit").click(_handle_submit_click);
-  parent_div
+  div
     .append(textarea)
     .append(cancel_button)
     .append(submit_button);
-  div.remove();
 }
 
 function _handle_delete_click() {
@@ -263,7 +260,7 @@ function show_post(post_type, id, div) {
     function(result) {
       div.addClass("thumbnail");
       div.empty();
-      var span = $("<span></span>").append(result);
+      var span = $("<span></span>").append(result).attr("id", "span"+id);
       var edit_button = new_button("edit").addClass("btn").addClass("btn-success").addClass("btn-edit");
       var delete_button = new_button("delete").addClass("btn").addClass("btn-danger").addClass("btn-delete");
       var button_div = $("<div></div>").addClass("to_right")
