@@ -202,7 +202,7 @@ function _handle_edit_click() {
 }
 
 function _handle_delete_click() {
-  var id = $(this).attr("qid");
+  var id = $(this).parent().parent().attr("qid");
   if (id != null) {
     method = "delete_question";
   } else {

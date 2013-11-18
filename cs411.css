@@ -12,6 +12,10 @@
 	width: 580px;
 }
 
+.edit_area {
+	height: 200px;
+	width: 556px;
+}
 
 .horizontal {
   float: left;
