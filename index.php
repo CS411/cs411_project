@@ -61,18 +61,17 @@
                 <div class="page-header">
                   <h1>Question <small>description</small></h1>
                 </div>
-                <div id="detail_question_div" class="main-div">
-                <div id="detail_solutions_div" class="left-right">
+                <div id="detail_question_div" class="main-div"></div>
                   <div class="page-header">
                     <h1>Solutions</h1>
                   </div>
-                </div>
+                <div id="detail_solutions_div" class="left-right"></div>
                 <div id="post_solution_div" class="main-div">
                   <div class="control-group">
                     <label class="control-label" for="question">Question:</label>
                     <div class="controls">
                       <textarea placeholder="Type your solution here" class="text_area" id="question_text" maxlength="1024"></textarea>
-                      </br>
+                      <br>
                       <button id="post_solution_button" class="btn btn-primary" type="button">Post Solution</button><br>
                     </div>
                   </div>

@@ -119,8 +119,8 @@ function _handle_post_tab_click() {
 
 function empty_result_detail() {
   $("#detail_question_div").empty();
-  $("#detail_solution_div").empty();
-  $("#post_solution_div").removeAttr("qid");
+  $("#detail_solutions_div").empty();
+  //$("#post_solution_div").removeAttr("qid");
 }
 
 function empty_search_result() {
@@ -169,22 +169,21 @@ function _handle_result_item_click() {
     null,
     function(solutions) {
       empty_result_detail();
-      var div = $("#result_detail_div").show();
+      $("#result_detail_div").show();
+      var div = $("#detail_question_div");
 
       var ques_div = $("<div></div>")
         .attr("id", "detail_question_div")
         .attr("qid", qid);
       div.append(ques_div);
-      insert_post("question", qid, ques_div);
+      show_post("question", qid, ques_div);
 
       for (var i=0; i<solutions.length; i++) {
         var sid = solutions[i]['ID'];
         var soln_div = $("<div></div>").attr("sid", sid);
         div.append(soln_div);
-        insert_post("solution", sid, soln_div);
+        show_post("solution", sid, soln_div);
       }
-      $(".btn-edit").click(_handle_edit_click);
-      $(".btn-delete").click(_handle_delete_click);
     },
     function(error, response) {
       alert("Showing question failed");
@@ -193,18 +192,21 @@ function _handle_result_item_click() {
 }
 
 function _handle_edit_click() {
-  var div = $(this).parent;
-  var text = div.val();
-  var textarea = $("<textarea></textarea>").append(text);
-  var cancel_button = new_button("cancel").addClass("btn-cancel");
-  var submit_button = new_button("submit").addClass("btn-submit");
+  var div = $(this).parent().parent();
+  //var parent_div = div.parent()
+  var span = parent_div.children()[0];
+  //parent_div.append(span);
+  div.after()
+  var textarea = $("<textarea></textarea>").append(span);
+  var cancel_button = new_button("cancel").addClass("btn").addClass("btn-cancel");
+  var submit_button = new_button("submit").addClass("btn").addClass("btn-submit");
   $(".btn-cancel").click(_handle_cancel_click);
   $(".btn-submit").click(_handle_submit_click);
-  div.empty();
-  div
+  parent_div
     .append(textarea)
     .append(cancel_button)
     .append(submit_button);
+  div.remove();
 }
 
 function _handle_delete_click() {
@@ -240,9 +242,9 @@ function _handle_cancel_click() {
   var div = $(this).parent;
   var qid = div.attr("qid");
   if (qid != null) {
-    insert_post("question", qid, div);
+    show_post("question", qid, div);
   } else {
-    insert_post("solution", div.attr("sid"), div);
+    show_post("solution", div.attr("sid"), div);
   }
 }
 
@@ -254,18 +256,22 @@ function _handle_post_solution_click() {
   alert("Posting solution");
 }
 
-function insert_post(post_type, id, div) {
+function show_post(post_type, id, div) {
   ajax_call(
     "./post.php?request="+post_type+"&id="+id,
     null,
     function(result) {
+      div.addClass("thumbnail");
       div.empty();
+      var span = $("<span></span>").append(result);
       var edit_button = new_button("edit").addClass("btn").addClass("btn-success").addClass("btn-edit");
       var delete_button = new_button("delete").addClass("btn").addClass("btn-danger").addClass("btn-delete");
-      div
-        .append(result)
+      var button_div = $("<div></div>").addClass("to_right")
         .append(edit_button)
         .append(delete_button);
+      div.append(span).append(button_div);
+      $(".btn-edit").click(_handle_edit_click);
+      $(".btn-delete").click(_handle_delete_click);
     },
     function() {
       alert("Showing post failed");

@@ -10,8 +10,13 @@ if ($_GET['request']=='category') {
   echo getCategories($con);
 }
 
+if ($_GET['request'] == 'question') {
+  echo searchID($con);
+}
+
 if($_GET['request']=='solutions') {
-  $ret = new array();
+  $ret = array();
+  header('Content-type: application/json');
   echo json_encode($ret);
 }
 
@@ -25,10 +30,6 @@ if ($_POST['method']=='delete_question') {
 
 if ($_POST['method']=='search_category') {
   echo searchCategory($con);
-}
-
-if ($_POST['method'] == 'get_question_desc') {
-  echo searchID($con);
 }
 
 
@@ -90,7 +91,7 @@ function searchCategory($con) {
 }
 
 function searchID($con) {
-  $id = $_POST['id'];
+  $id = $_GET['id'];
   $sql = "SELECT description FROM questions Where id = '" . $id . "' ";
   $result = mysqli_query($con,$sql);
   $row = mysqli_fetch_array($result);
