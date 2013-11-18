@@ -180,7 +180,7 @@ function _handle_result_item_click() {
 
       for (var i=0; i<solutions.length; i++) {
         var sid = solutions[i]['id'];
-        var soln_div = new_elem("div").attr("id", "soln"+sid).attr("sid", sid);
+        var soln_div = new_elem("div").attr("id", "post_s"+sid).attr("sid", sid);
         create_post("solution", sid, soln_div);
         $("#detail_solutions_div").append(soln_div);
       }
@@ -222,17 +222,16 @@ function _handle_edit_click() {
 
 function _handle_delete_click() {
   var div = $(this).parent().parent();
-  var qid = div.attr("qid");
+  var id = div.attr("qid");
   var method;
-  if (typeof qid != "undefined") {
+  if (typeof id != "undefined") {
     method = "delete_question";
   } else {
     id = div.attr("sid");
     method = "delete_solution";
   }
-  alert("Deleting is not implemented yet");
 
-  /*ajax_call(
+  ajax_call(
     "./post.php",
     {
       method: method,
@@ -243,14 +242,14 @@ function _handle_delete_click() {
         $("#item_q"+id).remove();
         empty_result_detail();
       } else {
-        $("#soln"+id).remove();
+        $("#post_s"+id).remove();
       }
     },
     function() {
       alert("Deleting failed");
     },
     "post"
-  );*/
+  );
 }
 
 function _handle_cancel_click() {
@@ -297,7 +296,10 @@ function create_post(post_type, id, div) {
     function(result) {
       div.empty();
       div.addClass("thumbnail");
-      var span = new_elem("span", textToHtml(result));
+      var span = new_elem("span");
+      if (result != null) {
+        span.append(textToHtml(result));
+      }
       var full_id = post_type == "question" ? "q"+id : "s"+id;
       var edit_button =
         new_elem("button", "edit", "edit_"+full_id)
@@ -323,13 +325,13 @@ function create_post(post_type, id, div) {
 // Post Tab 
 
 function _handle_post_question_click() {
-  var question_title = $("#question_title_text");
-  if (question_title.val() == "") {
+  var ques_title = $("#question_title_text");
+  if (ques_title.val() == "") {
     alert("Title can not be empty");
     return;
   }
-  var question_desc = $("#question_text");
-  if (question_desc.val() == "") {
+  var ques_desc = $("#question_text");
+  if (ques_desc.val() == "") {
     alert("Question can not be empty");
     return;
   }
@@ -338,12 +340,12 @@ function _handle_post_question_click() {
     { 
       method: "post_question",
       category: $("#post_category").val(),
-      title: question_title.val(),
-      question_desc: question_desc.val()
+      title: ques_title.val(),
+      question_desc: ques_desc.val()
     },
     function() {
-      question_title.val("");
-      question_desc.val("");
+      ques_title.val("");
+      ques_desc.val("");
       alert("Succeed")
     },
     function() {
