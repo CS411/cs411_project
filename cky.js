@@ -33,6 +33,7 @@ function _init() {
     }
   );
 }
+
 function _handle_login_request(){
    ajax_call(
     "./login.php",
@@ -53,6 +54,7 @@ function _handle_login_request(){
   );
 
 }
+
 function hide_all_tabs_but(tab) {
   $("#home_div").hide();
   $("#search_div").hide();
@@ -76,18 +78,22 @@ function ajax_call(url, data, successCallback, errorCallback, type) {
   });
 }
 
-function new_button(content, id) {
-  var button = $("<button></button>").append(content);
-  if (typeof id != "undefined") {
-    return button.attr("id", id);
+function new_elem(name, content, id) {
+  var elem = $("<"+name+"></"+name+">");
+  if (typeof content == "undefined") {
+    return elem;
   }
-  return button;
+
+  elem.append(content);
+  if (typeof id == "undefined") {
+    return elem
+  }
+
+  return elem.attr("id", id);
 }
 
 function new_link(content, id) {
-  var link = $("<a></a>")
-    .append(content)
-    .css("cursor", "pointer");
+  var link = new_elem("a", content).css("cursor", "pointer");
   if (typeof id != "undefined") {
     return link.attr("id", id);
   }
@@ -120,7 +126,7 @@ function _handle_post_tab_click() {
 function empty_result_detail() {
   $("#detail_question_div").empty();
   $("#detail_solutions_div").empty();
-  //$("#post_solution_div").removeAttr("qid");
+  $("#post_solution_button").removeAttr("qid");
 }
 
 function empty_search_result() {
@@ -139,15 +145,15 @@ function _handle_search_button_click() {
       empty_search_result();
       $("#result_detail_div").hide();
 
-      var list = $("<ul></ul>").attr("id", "result_list");
+      var list = new_elem("ul").attr("id", "result_list");
       $("#result_list_div").append(list);
       for (var i=0; i<result.length; i++) {
         var content = new_link(result[i]['title']);
-        var content_div = $("<div></div>").append(content);
-        var item = $("<li></li>")
+        var content_div = new_elem("div", content);
+        var item = new_elem("li", content_div)
           .attr({
-            "id": "item"+result[i]['ID'],
-            "qid": result[i]['ID']
+            "id": "item"+result[i]['id'],
+            "qid": result[i]['id']
           })
           .addClass("result-item")
           .append(content_div);
@@ -163,24 +169,25 @@ function _handle_search_button_click() {
 }
 
 function _handle_result_item_click() {
+  empty_result_detail();
+  $("#result_detail_div").hide();
   var qid = $(this).attr("qid");
   ajax_call(
     "./post.php?request=solutions&id="+qid,
     null,
     function(solutions) {
-      empty_result_detail();
-      $("#result_detail_div").show();
-
-      var ques_post = $("<div></div>").attr("qid", qid);
+      var ques_post = new_elem("div").attr("qid", qid);
       $("#detail_question_div").append(ques_post);
-      show_post("question", qid, ques_post);
+      create_post("question", qid, ques_post);
 
       for (var i=0; i<solutions.length; i++) {
-        var sid = solutions[i]['ID'];
-        var soln_div = $("<div></div>").attr("sid", sid);
-        div.append(soln_div);
-        show_post("solution", sid, soln_div);
+        var sid = solutions[i]['id'];
+        var soln_div = new_elem("div").attr("id", "soln"+sid).attr("sid", sid);
+        create_post("solution", sid, soln_div);
+        $("#detail_solutions_div").append(soln_div);
       }
+      $("#post_question_button").attr("qid", qid);
+      $("#result_detail_div").show();
     },
     function(error, response) {
       alert("Showing question failed");
@@ -190,12 +197,12 @@ function _handle_result_item_click() {
 
 function _handle_edit_click() {
   var div = $(this).parent().parent();
-  var text = $(div.children().get(0)).text();
+  var html = $(div.children().get(0)).html();
   div.empty();
-  var textarea = $("<textarea></textarea>").append(text).addClass("edit_area");
-  var cancel_button = new_button("cancel").addClass("btn").addClass("btn-default").addClass("btn-cancel");
-  var submit_button = new_button("submit").addClass("btn").addClass("btn-success").addClass("btn-submit");
-  var button_div = $("<div></div>").append(cancel_button).append(submit_button).addClass("to_right");
+  var textarea = new_elem("textarea", htmlToText(html)).addClass("edit_area");
+  var cancel_button = new_elem("button", "cancel").addClass("btn").addClass("btn-default").addClass("btn-cancel");
+  var submit_button = new_elem("button", "submit").addClass("btn").addClass("btn-success").addClass("btn-submit");
+  var button_div = new_elem("div").append(cancel_button).append(submit_button).addClass("to_right");
   div.append(textarea).append(button_div);
   $(".btn-cancel").click(_handle_cancel_click);
   $(".btn-submit").click(_handle_submit_click);
@@ -203,6 +210,7 @@ function _handle_edit_click() {
 
 function _handle_delete_click() {
   var id = $(this).parent().parent().attr("qid");
+  var method;
   if (id != null) {
     method = "delete_question";
   } else {
@@ -234,9 +242,9 @@ function _handle_cancel_click() {
   var div = $(this).parent().parent();
   var qid = div.attr("qid");
   if (qid != null) {
-    show_post("question", qid, div);
+    create_post("question", qid, div);
   } else {
-    show_post("solution", div.attr("sid"), div);
+    create_post("solution", div.attr("sid"), div);
   }
 }
 
@@ -245,20 +253,39 @@ function _handle_submit_click() {
 }
 
 function _handle_post_solution_click() {
-  alert("Posting solution");
+  var soln_desc = $("#solution_text");
+  if (soln_desc.val() == "") {
+    alert("Solution can not be empty");
+    return;
+  }
+  ajax_call(
+    "./post.php",
+    { 
+      method: "post_solution",
+      qid: $(this).attr("qid")
+    },
+    function() {
+      soln_desc.val("");
+      alert("Succeed")
+    },
+    function() {
+      alert("Failed");
+    },
+    "post"
+  );
 }
 
-function show_post(post_type, id, div) {
+function create_post(post_type, id, div) {
   ajax_call(
     "./post.php?request="+post_type+"&id="+id,
     null,
     function(result) {
       div.empty();
       div.addClass("thumbnail");
-      var span = $("<span></span>").append(result).attr("id", "span"+id);
-      var edit_button = new_button("edit").addClass("btn").addClass("btn-success").addClass("btn-edit");
-      var delete_button = new_button("delete").addClass("btn").addClass("btn-danger").addClass("btn-delete");
-      var button_div = $("<div></div>").addClass("to_right")
+      var span = new_elem("span", textToHtml(result));
+      var edit_button = new_elem("button", "edit").addClass("btn").addClass("btn-success").addClass("btn-edit");
+      var delete_button = new_elem("button", "delete").addClass("btn").addClass("btn-danger").addClass("btn-delete");
+      var button_div = new_elem("div").addClass("to_right")
         .append(edit_button)
         .append(delete_button);
       div.append(span).append(button_div);
@@ -303,3 +330,14 @@ function _handle_post_question_click() {
     "post"
   );
 }
+
+// Conversions between <br> and '\r\n'
+
+function textToHtml(text) {
+  return text.replace(/(\r\n|\n|\r)/gm, "<br>");
+}
+
+function htmlToText(html) {
+  return html.replace(/<br\s*\/?>/ig, "\r\n");
+}
+

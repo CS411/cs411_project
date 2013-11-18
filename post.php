@@ -54,7 +54,7 @@ function getSolutions($con) {
   $ret = array();
   while ($row = mysqli_fetch_array($result)) {
     $tmp = array();
-    $tmp['ID'] = $row['SID'];
+    $tmp['id'] = $row['SID'];
     array_push($ret,$tmp);
   }
   header('Content-type: application/json');
@@ -65,12 +65,14 @@ function getSolution($con) {
   $SID = $_GET['id'];
   $sql = "SELECT s.description FROM solutions s WHERE s.ID ='".$SID."'" ;
   $result = mysqli_query($con,$sql);
-  $ret = array();
+  $row = mysqli_fetch_array($result);
+  /*$ret = array();
   while ($row = mysqli_fetch_array($result)) {
     $tmp = array();
     $tmp['desc'] = $row['description'];
     array_push($ret,$tmp);
-  }
+  }*/
+  $ret = $row['description'];
   header('Content-type: application/json');
   return json_encode($ret);
 }
@@ -113,7 +115,7 @@ function searchCategory($con) {
   $ret = array();
   while($row = mysqli_fetch_array($result)) {
     $tmp = array();
-    $tmp['ID'] = $row['ID'];
+    $tmp['id'] = $row['ID'];
     $tmp['title'] = $row['title'];
     array_push($ret,$tmp);
   }
