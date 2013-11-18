@@ -15,9 +15,11 @@ if ($_GET['request'] == 'question') {
 }
 
 if($_GET['request']=='solutions') {
-  $ret = array();
-  header('Content-type: application/json');
-  echo json_encode($ret);
+  echo getSolutions($con);
+}
+
+if($_GET['request']=='solution') {
+  echo getSolution($con);
 }
 
 if ($_POST['method']=='post_question') {
@@ -40,6 +42,34 @@ function getCategories($con) {
   $ret = array();
   while ($row = mysqli_fetch_array($result)) {
     array_push($ret, $row['name']);
+  }
+  header('Content-type: application/json');
+  return json_encode($ret);
+}
+
+function getSolutions($con) {
+  $QID = $_GET['id'];
+  $sql = "SELECT a.SID FROM answers a WHERE a.QID ='".$QID."'" ;
+  $result = mysqli_query($con,$sql);
+  $ret = array();
+  while ($row = mysqli_fetch_array($result)) {
+    $tmp = array();
+    $tmp['ID'] = $row['SID'];
+    array_push($ret,$tmp);
+  }
+  header('Content-type: application/json');
+  return json_encode($ret);
+}
+
+function getSolution($con) {
+  $SID = $_GET['id'];
+  $sql = "SELECT s.description FROM solutions s WHERE s.ID ='".$SID."'" ;
+  $result = mysqli_query($con,$sql);
+  $ret = array();
+  while ($row = mysqli_fetch_array($result)) {
+    $tmp = array();
+    $tmp['desc'] = $row['description'];
+    array_push($ret,$tmp);
   }
   header('Content-type: application/json');
   return json_encode($ret);
