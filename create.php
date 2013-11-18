@@ -6,6 +6,9 @@ if (mysqli_connect_errno()) {
 }
 
   $username = $_POST['user_id'];
+  $email = $_POST['email'];
+//  $gender = $_POST['gender'];
+
   $pw = $_POST['passwd'];
   $pw2 = $_POST['conpasswd'];
 
@@ -18,6 +21,8 @@ if (mysqli_connect_errno()) {
     {
       $md5_password = md5($pw);
       $sql = "INSERT INTO users(username,password) VALUES ('" .$username. "', '" .$md5_password. "')";
+      mysqli_query($con,$sql);
+      $sql = "INSERT INTO user_profile(username,email) VALUES ('".$username."','".$email."')";
       mysqli_query($con,$sql);
       echo "success";
       echo '<meta http-equiv=REFRESH CONTENT=2;url=index.php>';
