@@ -34,7 +34,9 @@ if ($_POST['method']=='search_category') {
   echo searchCategory($con);
 }
 
-
+if ($_POST['method']=='post_solution') {
+  echo postSolution($con);
+}
 
 function getCategories($con) {
   $sql = "SELECT name FROM categories";
@@ -133,6 +135,19 @@ function searchID($con) {
   return json_encode($ret); 
 }
 
+function postSolution($con) {
+  $desc = $_POST['solution_desc'];
+  $QID = $_POST['QID'];
+  $sql = "INSERT INTO answers(QID) values('".$QID."')";
+  mysqli_query($con,$sql);
+  $result = mysqli_query($con,"select @@identity");
+  $row = mysqli_fetch_array($result);
+  $SID = $row[0];
+  $sql = "INSERT INTO solutions(ID,description) VALUES ('".$SID."','".$desc."')";
+  mysqli_query($con,$sql);
+  return $sql;
+
+}
 
 //function updateQuestion($con) {
 //  $questionID = $_POST['question_id'];
