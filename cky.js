@@ -1,5 +1,3 @@
-// This function finds the list of categories and push them into the drop down
-// list
 $(document).ready(_init);
 
 function _init() {
@@ -152,7 +150,7 @@ function _handle_search_button_click() {
         var content_div = new_elem("div", content);
         var item = new_elem("li", content_div)
           .attr({
-            "id": "item"+result[i]['id'],
+            "id": "item_q"+result[i]['id'],
             "qid": result[i]['id']
           })
           .addClass("result-item")
@@ -197,27 +195,44 @@ function _handle_result_item_click() {
 
 function _handle_edit_click() {
   var div = $(this).parent().parent();
+  var full_id = typeof div.attr("qid") != "undefined" ?
+    "q"+div.attr("qid") : "s"+div.attr("sid");
   var html = $(div.children().get(0)).html();
   div.empty();
   var textarea = new_elem("textarea", htmlToText(html)).addClass("edit_area");
-  var cancel_button = new_elem("button", "cancel").addClass("btn").addClass("btn-default").addClass("btn-cancel");
-  var submit_button = new_elem("button", "submit").addClass("btn").addClass("btn-success").addClass("btn-submit");
-  var button_div = new_elem("div").append(cancel_button).append(submit_button).addClass("to_right");
+  var cancel_button = 
+    new_elem("button", "cancel", "cancel_"+full_id)
+    .addClass("btn")
+    .addClass("btn-default")
+    .addClass("btn-cancel");
+  var submit_button = 
+    new_elem("button", "submit", "submit_"+full_id)
+    .addClass("btn")
+    .addClass("btn-success")
+    .addClass("btn-submit");
+  var button_div = 
+    new_elem("div")
+    .append(cancel_button)
+    .append(submit_button)
+    .addClass("to_right");
   div.append(textarea).append(button_div);
-  $(".btn-cancel").click(_handle_cancel_click);
-  $(".btn-submit").click(_handle_submit_click);
+  $("#cancel_"+full_id).click(_handle_cancel_click);
+  $("#submit_"+full_id).click(_handle_submit_click);
 }
 
 function _handle_delete_click() {
-  var id = $(this).parent().parent().attr("qid");
+  var div = $(this).parent().parent();
+  var qid = div.attr("qid");
   var method;
-  if (id != null) {
+  if (typeof qid != "undefined") {
     method = "delete_question";
   } else {
-    id = $(this.attr("sid"));
+    id = div.attr("sid");
     method = "delete_solution";
   }
-  ajax_call(
+  alert("Deleting is not implemented yet");
+
+  /*ajax_call(
     "./post.php",
     {
       method: method,
@@ -225,7 +240,7 @@ function _handle_delete_click() {
     },
     function() {
       if (method == "delete_question") {
-        $("#item"+id).remove();
+        $("#item_q"+id).remove();
         empty_result_detail();
       } else {
         $("#soln"+id).remove();
@@ -235,13 +250,13 @@ function _handle_delete_click() {
       alert("Deleting failed");
     },
     "post"
-  );
+  );*/
 }
 
 function _handle_cancel_click() {
   var div = $(this).parent().parent();
   var qid = div.attr("qid");
-  if (qid != null) {
+  if (typeof qid != "undefined") {
     create_post("question", qid, div);
   } else {
     create_post("solution", div.attr("sid"), div);
@@ -249,7 +264,7 @@ function _handle_cancel_click() {
 }
 
 function _handle_submit_click() {
-  alert("submit");
+  alert("Modifying is not implemented yet");
 }
 
 function _handle_post_solution_click() {
@@ -283,14 +298,21 @@ function create_post(post_type, id, div) {
       div.empty();
       div.addClass("thumbnail");
       var span = new_elem("span", textToHtml(result));
-      var edit_button = new_elem("button", "edit").addClass("btn").addClass("btn-success").addClass("btn-edit");
-      var delete_button = new_elem("button", "delete").addClass("btn").addClass("btn-danger").addClass("btn-delete");
+      var full_id = post_type == "question" ? "q"+id : "s"+id;
+      var edit_button =
+        new_elem("button", "edit", "edit_"+full_id)
+        .addClass("btn")
+        .addClass("btn-success")
+      var delete_button =
+        new_elem("button", "delete", "delete_"+full_id)
+        .addClass("btn")
+        .addClass("btn-danger")
       var button_div = new_elem("div").addClass("to_right")
         .append(edit_button)
         .append(delete_button);
       div.append(span).append(button_div);
-      $(".btn-edit").click(_handle_edit_click);
-      $(".btn-delete").click(_handle_delete_click);
+      $("#edit_"+full_id).click(_handle_edit_click);
+      $("#delete_"+full_id).click(_handle_delete_click);
     },
     function() {
       alert("Showing post failed");
