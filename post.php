@@ -10,6 +10,11 @@ if ($_GET['request']=='category') {
   echo getCategories($con);
 }
 
+if($_GET['request']=='solutions') {
+  $ret = new array();
+  echo json_encode($ret);
+}
+
 if ($_POST['method']=='post_question') {
   echo postQuestion($con);
 }
