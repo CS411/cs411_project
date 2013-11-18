@@ -296,10 +296,7 @@ function create_post(post_type, id, div) {
     function(result) {
       div.empty();
       div.addClass("thumbnail");
-      var span = new_elem("span");
-      if (result != null) {
-        span.append(textToHtml(result));
-      }
+      var span = new_elem("span").append(textToHtml(result));
       var full_id = post_type == "question" ? "q"+id : "s"+id;
       var edit_button =
         new_elem("button", "edit", "edit_"+full_id)
@@ -358,10 +355,10 @@ function _handle_post_question_click() {
 // Conversions between <br> and '\r\n'
 
 function textToHtml(text) {
-  return text.replace(/(\r\n|\n|\r)/gm, "<br>");
+  return text == null? null : text.replace(/(\r\n|\n|\r)/gm, "<br>");
 }
 
 function htmlToText(html) {
-  return html.replace(/<br\s*\/?>/ig, "\r\n");
+  return html == null? null : html.replace(/<br\s*\/?>/ig, "\r\n");
 }
 
