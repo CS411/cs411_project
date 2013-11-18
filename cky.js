@@ -12,7 +12,7 @@ function _init() {
   $("#search_button").click(_handle_search_button_click);
   $("#post_button").click(_handle_post_button_click);
   $("#register").click(function(){
-    window.open("http://cky.cs.illinois.edu/bchiang3/register.php");
+    window.open("http://cky.cs.illinois.edu/carolineli/register.php");
   });
 
 //  $("#login").click(_handle_login_request);

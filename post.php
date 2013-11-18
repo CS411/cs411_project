@@ -51,6 +51,7 @@ function postQuestion($con) {
 
   $sql = "INSERT INTO questions (category,title, description)
     VALUES ('" . $category . "','" . $escape_title . "','" . $escape_description . "')";
+
   mysqli_query($con,$sql);
 
   $result = mysqli_query($con,"select @@identity");
