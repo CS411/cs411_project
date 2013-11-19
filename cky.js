@@ -231,6 +231,8 @@ function _handle_delete_click() {
     method = "delete_solution";
   }
 
+  alert(id);
+
   ajax_call(
     "./post.php",
     {
@@ -281,7 +283,7 @@ function _handle_post_solution_click() {
     },
     function(sid) {
       soln_desc.val("");
-      var div = new_elem("div").attr("id", "post_s"+sid).addClass("thumbnail");
+      var div = new_elem("div").attr("id", "post_s"+sid).attr("sid", sid).addClass("thumbnail");
       $("#detail_solutions_div").append(div);
       create_post("solution", sid, div);
     },
