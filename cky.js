@@ -230,7 +230,6 @@ function _handle_delete_click() {
     id = div.attr("sid");
     method = "delete_solution";
   }
-
   ajax_call(
     "./post.php",
     {
@@ -281,7 +280,7 @@ function _handle_post_solution_click() {
     },
     function(sid) {
       soln_desc.val("");
-      var div = new_elem("div").attr("id", "post_s"+sid).addClass("thumbnail");
+      var div = new_elem("div").attr("id", "post_s"+sid).attr("sid", sid).addClass("thumbnail");
       $("#detail_solutions_div").append(div);
       create_post("solution", sid, div);
     },
@@ -317,7 +316,7 @@ function create_post(post_type, id, div) {
       $("#delete_"+full_id).click(_handle_delete_click);
     },
     function() {
-      alert("Showing post failed");
+      alert("Updatin post failed");
     }
   );
 }
