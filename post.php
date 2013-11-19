@@ -42,6 +42,14 @@ if ($_POST['method']=='post_solution') {
   echo postSolution($con);
 }
 
+if ($_POST['method']=='edit_question') {
+  echo editQuestion($con);
+}
+
+if ($_POST['method']=='edit_solution') {
+  echo editSolution($con);
+}
+
 function getCategories($con) {
   $sql = "SELECT name FROM categories";
   $result = mysqli_query($con, $sql);
@@ -165,11 +173,21 @@ function postSolution($con) {
 
 }
 
-//function updateQuestion($con) {
-//  $questionID = $_POST['question_id'];
-//  $description = $_POST['']
-//  $sql = "UPDATE question SET description ="
-//}
+function editQuestion($con) {
+  $QID = $_POST['question_id'];
+  $desc = $_POST['question_desc'];
+  $sql = "UPDATE questions SET description ='".$desc."' WHERE id= '".$QID."'";
+  mysqli_query($con,$sql);
+  return $sql;
+}
+
+function editSolution($con) {
+  $SID = $_POST['solution_id'];
+  $desc = $_POST['solution_desc'];
+  $sql = "UPDATE solutions SET description ='".$desc."' WHERE id= '".$SID."'";
+  mysqli_query($con,$sql);
+  return $sql;
+}
 
 ?>
 
