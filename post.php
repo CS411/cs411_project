@@ -151,12 +151,14 @@ function searchID($con) {
 function postSolution($con) {
   $desc = $_POST['solution_desc'];
   $QID = $_POST['qid'];
+  $escape_desc = mysqli_real_escape_string($con,$desc);
+
   $sql = "INSERT INTO answers(QID) values('".$QID."')";
   mysqli_query($con,$sql);
   $result = mysqli_query($con,"select @@identity");
   $row = mysqli_fetch_array($result);
   $SID = $row[0];
-  $sql = "INSERT INTO solutions(ID,description) VALUES ('".$SID."','".$desc."')";
+  $sql = "INSERT INTO solutions(ID,description) VALUES ('".$SID."','".$escape_desc."')";
   mysqli_query($con,$sql);
   header('Content-type: application/json');
   return json_encode($SID);
