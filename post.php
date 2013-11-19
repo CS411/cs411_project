@@ -145,7 +145,8 @@ function postSolution($con) {
   $SID = $row[0];
   $sql = "INSERT INTO solutions(ID,description) VALUES ('".$SID."','".$desc."')";
   mysqli_query($con,$sql);
-  return $sql;
+  header('Content-type: application/json');
+  return json_encode($SID);
 
 }
 
