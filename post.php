@@ -94,7 +94,7 @@ function getSolution($con) {
 function postQuestion($con) {
   $category = $_POST['category'];
   $title = $_POST['title'];
-  $description = $_POST['question_desc'];
+  $description = $_POST['desc'];
 
 //  $uid = $_POST['user_id'];
   $uid = "caro";
@@ -157,7 +157,7 @@ function searchID($con) {
 }
 
 function postSolution($con) {
-  $desc = $_POST['solution_desc'];
+  $desc = $_POST['desc'];
   $QID = $_POST['qid'];
   $escape_desc = mysqli_real_escape_string($con,$desc);
 
@@ -174,16 +174,16 @@ function postSolution($con) {
 }
 
 function editQuestion($con) {
-  $QID = $_POST['question_id'];
-  $desc = $_POST['question_desc'];
+  $QID = $_POST['id'];
+  $desc = $_POST['desc'];
   $sql = "UPDATE questions SET description ='".$desc."' WHERE id= '".$QID."'";
   mysqli_query($con,$sql);
   return $sql;
 }
 
 function editSolution($con) {
-  $SID = $_POST['solution_id'];
-  $desc = $_POST['solution_desc'];
+  $SID = $_POST['id'];
+  $desc = $_POST['desc'];
   $sql = "UPDATE solutions SET description ='".$desc."' WHERE id= '".$SID."'";
   mysqli_query($con,$sql);
   return $sql;

@@ -205,19 +205,19 @@ function _handle_edit_click() {
     .addClass("btn")
     .addClass("btn-default")
     .addClass("btn-cancel");
-  var submit_button = 
-    new_elem("button", "submit", "submit_"+full_id)
+  var done_button = 
+    new_elem("button", "Done", "done_"+full_id)
     .addClass("btn")
     .addClass("btn-success")
-    .addClass("btn-submit");
+    .addClass("btn-done");
   var button_div = 
     new_elem("div")
     .append(cancel_button)
-    .append(submit_button)
+    .append(done_button)
     .addClass("to_right");
   div.append(textarea).append(button_div);
   $("#cancel_"+full_id).click(_handle_cancel_click);
-  $("#submit_"+full_id).click(_handle_submit_click);
+  $("#done_"+full_id).click(_handle_done_click);
 }
 
 function _handle_delete_click() {
@@ -261,14 +261,46 @@ function _handle_cancel_click() {
   }
 }
 
-function _handle_submit_click() {
-  alert("Modifying is not implemented yet");
+function _handle_done_click() {
+  var div = $(this).parent().parent();
+  var desc_text = $(div.children().get(0));
+  if (desc_text.val() == "") {
+    alert("Description can not be empty");
+    return;
+  }
+
+  var id = div.attr("qid");
+  if (typeof id != "undefined") {
+    method = "edit_question";
+  } else {
+    method = "edit_solution";
+    id = div.attr("sid");
+  }
+  ajax_call(
+    "./post.php",
+    {
+      method: method,
+      id: id,
+      desc: desc_text.val()
+    },
+    function() {
+      if (method == "edit_question") {
+        create_post("question", id, div);
+      } else {
+        create_post("solution", id, div);
+      }
+    },
+    function() {
+      alert("Failed");
+    },
+    "post"
+  );
 }
 
 function _handle_post_solution_click() {
-  var soln_desc = $("#solution_text");
-  if (soln_desc.val() == "") {
-    alert("Solution can not be empty");
+  var soln_text = $("#solution_text");
+  if (soln_text.val() == "") {
+    alert("Description can not be empty");
     return;
   }
   ajax_call(
@@ -276,10 +308,10 @@ function _handle_post_solution_click() {
     { 
       method: "post_solution",
       qid: $(this).attr("qid"),
-      solution_desc: soln_desc.val()
+      desc: soln_text.val()
     },
     function(sid) {
-      soln_desc.val("");
+      soln_text.val("");
       var div = new_elem("div").attr("id", "post_s"+sid).attr("sid", sid).addClass("thumbnail");
       $("#detail_solutions_div").append(div);
       create_post("solution", sid, div);
@@ -340,7 +372,7 @@ function _handle_post_question_click() {
       method: "post_question",
       category: $("#post_category").val(),
       title: ques_title.val(),
-      question_desc: ques_desc.val()
+      desc: ques_desc.val()
     },
     function() {
       ques_title.val("");
