@@ -184,7 +184,7 @@ function _handle_result_item_click() {
         create_post("solution", sid, soln_div);
         $("#detail_solutions_div").append(soln_div);
       }
-      $("#post_question_button").attr("qid", qid);
+      $("#post_solution_button").attr("qid", qid);
       $("#result_detail_div").show();
     },
     function(error, response) {
@@ -276,11 +276,15 @@ function _handle_post_solution_click() {
     "./post.php",
     { 
       method: "post_solution",
-      qid: $(this).attr("qid")
+      QID: $(this).attr("qid"),
+      solution_desc: soln_desc.val()
     },
-    function() {
+    function(sid) {
       soln_desc.val("");
-      alert("Succeed")
+      alert("Succeed");
+      /*var div = new_elem("div").addClass("thumbnail");
+      $("#detail_solutions_div").append(div);
+      show_post("solution", sid, div);*/
     },
     function() {
       alert("Failed");
