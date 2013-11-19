@@ -59,7 +59,7 @@
               <div id="result_list_div" class="horizontal sub-div"></div>
               <div id="result_detail_div" class="horizontal">
                 <div class="page-header">
-                  <h1>Question <small>description</small></h1>
+                  <h1>Question</h1>
                 </div>
                 <div id="detail_question_div" class="main-div"></div>
                   <div class="page-header">
@@ -68,7 +68,7 @@
                 <div id="detail_solutions_div" class="left-right"></div>
                 <div id="post_solution_div" class="main-div">
                   <div class="control-group">
-                    <label class="control-label" for="question">Question:</label>
+                    <!--<label class="control-label" for="question">Post Solution:</label>-->
                     <div class="controls">
                       <textarea placeholder="Type your solution here" class="text_area" id="solution_text" maxlength="1024"></textarea>
                       <br>
