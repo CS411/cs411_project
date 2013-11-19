@@ -30,6 +30,10 @@ if ($_POST['method']=='delete_question') {
   deleteQuestion($con);
 }
 
+if ($_POST['method']=='delete_solution') {
+  deleteSolution($con);
+}
+
 if ($_POST['method']=='search_category') {
   echo searchCategory($con);
 }
@@ -106,6 +110,13 @@ function postQuestion($con) {
 function deleteQuestion($con) {
   $questionID = $_POST['question_id'];
   $sql = "DELETE FROM questions WHERE id = " . $questionID ."";
+  mysqli_query($con,$sql);
+  echo $sql;
+}
+
+function deleteSolution($con) {
+  $solutionID = $_POST['solution_id'];
+  $sql = "DELETE FROM solutions WHERE id = " . $solutionID ."";
   mysqli_query($con,$sql);
   echo $sql;
 }
