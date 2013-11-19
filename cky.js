@@ -276,15 +276,14 @@ function _handle_post_solution_click() {
     "./post.php",
     { 
       method: "post_solution",
-      QID: $(this).attr("qid"),
+      qid: $(this).attr("qid"),
       solution_desc: soln_desc.val()
     },
     function(sid) {
       soln_desc.val("");
-      alert("Succeed");
-      /*var div = new_elem("div").addClass("thumbnail");
+      var div = new_elem("div").attr("id", "post_s"+sid).addClass("thumbnail");
       $("#detail_solutions_div").append(div);
-      show_post("solution", sid, div);*/
+      create_post("solution", sid, div);
     },
     function() {
       alert("Failed");
