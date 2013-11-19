@@ -108,14 +108,14 @@ function postQuestion($con) {
 }
 
 function deleteQuestion($con) {
-  $questionID = $_POST['question_id'];
+  $questionID = $_POST['id'];
   $sql = "DELETE FROM questions WHERE id = " . $questionID ."";
   mysqli_query($con,$sql);
   echo $sql;
 }
 
 function deleteSolution($con) {
-  $solutionID = $_POST['solution_id'];
+  $solutionID = $_POST['id'];
   $sql = "DELETE FROM solutions WHERE id = " . $solutionID ."";
   mysqli_query($con,$sql);
   echo $sql;
