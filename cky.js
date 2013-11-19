@@ -230,9 +230,6 @@ function _handle_delete_click() {
     id = div.attr("sid");
     method = "delete_solution";
   }
-
-  alert(id);
-
   ajax_call(
     "./post.php",
     {
@@ -319,7 +316,7 @@ function create_post(post_type, id, div) {
       $("#delete_"+full_id).click(_handle_delete_click);
     },
     function() {
-      alert("Showing post failed");
+      alert("Updatin post failed");
     }
   );
 }
