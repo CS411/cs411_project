@@ -137,7 +137,7 @@ function searchID($con) {
 
 function postSolution($con) {
   $desc = $_POST['solution_desc'];
-  $QID = $_POST['QID'];
+  $QID = $_POST['qid'];
   $sql = "INSERT INTO answers(QID) values('".$QID."')";
   mysqli_query($con,$sql);
   $result = mysqli_query($con,"select @@identity");
