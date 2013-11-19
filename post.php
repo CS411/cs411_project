@@ -118,6 +118,8 @@ function deleteSolution($con) {
   $solutionID = $_POST['id'];
   $sql = "DELETE FROM solutions WHERE id = " . $solutionID ."";
   mysqli_query($con,$sql);
+  $sql = "DELETE FROM answers WHERE SID = " . $solutionID ."";
+  mysqli_query($con,$sql);
   echo $sql;
 }
 
