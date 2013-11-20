@@ -51,8 +51,8 @@ html {overflow-y: scroll;}
   position: relative;
 }
 #register{
-  margin-left: 420px;
-  margin-top: 8px;
+  margin-left: 0px;
+  margin-top: 0px;
   color: blue;
 }
 #search_button{

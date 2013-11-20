@@ -20,13 +20,13 @@
         <div class="container">
           <a class="navbar-brand" href="#">Interview Gurus</a>
           <div class="navbar-collapse collapse">
-            <button type="submit" class="btn btn-default register" id="register">Register</button>
-            <form class="navbar-form pull-right" name="form" method="post" action="login.php">
+           <form class="navbar-form pull-right" name="form" method="post" action="login.php">
               <!--  <a id="newuser_href" href="#NewUser">New User</a>-->
-	            <input class="span2 form-control" name="username" type="text" placeholder="UserName" id="username">
+	      <input class="span2 form-control" name="username" type="text" placeholder="UserName" id="username">
               <input class="span2 form-control" name="passwd" type="password" placeholder="Password" id="password">
               <button type="submit" name="button" class="btn btn-default" id="login">Sign in</button>
-            </form>
+              <button type="submit" class="btn btn-default register" id="register">Register</button> 
+	  </form>
         </div>
        </div><!--end container -->
       </div><!--end navbar inner -->
@@ -71,9 +71,9 @@
         <div class="item">
           <div class="container slide_container">
             <div class="carousel-caption">
-              <h1>Practice makes perfect!</h1>
+              <h1>Practice for your interviews now!</h1>
 	      <p>Do not wait until the last minute</p>
-              <p><a class="btn btn-lg btn-primary" id="post_tab_button" role="button">Post your question now!</a></p>
+              <p><a class="btn btn-lg btn-primary" id="post_tab_button" role="button">Post your question!</a></p>
             </div>
           </div>
         </div>
