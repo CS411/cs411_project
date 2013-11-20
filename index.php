@@ -25,7 +25,7 @@
               <!--  <a id="newuser_href" href="#NewUser">New User</a>-->
 	            <input class="span2 form-control" name="username" type="text" placeholder="UserName" id="username">
               <input class="span2 form-control" name="passwd" type="password" placeholder="Password" id="password">
-              <input type="submit" name="button" class="btn btn-default" id="login"></button>
+              <button type="submit" name="button" class="btn btn-default" id="login">Sign in</button>
             </form>
         </div>
        </div><!--end container -->
@@ -84,6 +84,7 @@
 
    </div>
    <div id="search_div">
+        <br>
         <div class="form-group">
           <label class="control-label" for="category">Category:</label>
           <div class="controls">
@@ -97,7 +98,7 @@
                 </div>
                 <div id="detail_question_div" class="main-div"></div>
                   <div class="page-header">
-                    <h1>Solutions</h1>
+                    <h1>Solution</h1>
                   </div>
                 <div id="detail_solutions_div" class="left-right"></div>
                 <div id="post_solution_div" class="main-div">
@@ -105,7 +106,7 @@
                     <!--<label class="control-label" for="question">Post Solution:</label>-->
                     <div class="controls">
                       <div class="page-header">
-                        <h1>Share your solutions</h1>
+                        <h1>Share your solution</h1>
                       </div>
                       <textarea placeholder="Type your solution here" class="text_area" id="solution_text" maxlength="1024"></textarea>
                       <br>
@@ -120,6 +121,7 @@
    </div><!--end search division-->
 
    <div class="post-div" id="post_div">
+      <br>
       <form role="form">
         <div class="form-group">
           <label for="category">Category:</label>

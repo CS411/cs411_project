@@ -1,3 +1,4 @@
+html {overflow-y: scroll;}
 .post-div .title {
   width: 600px;
 }
@@ -50,8 +51,8 @@
   position: relative;
 }
 #register{
-  margin-left: 428px;
-  margin-top: 7px;
+  margin-left: 420px;
+  margin-top: 8px;
   color: blue;
 }
 #search_button{
@@ -91,4 +92,7 @@
 }
 .carousel-caption{
   margin-bottom: 60px;
+}
+#post_solution_button{
+  margin-top:10px;
 }
