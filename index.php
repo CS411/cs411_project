@@ -53,8 +53,8 @@
         <div class="item active">
           <div class="container slide_container">
             <div class="carousel-caption">
-              <h1>Hello, We are Interview Gurus</h1>
-              <p>Home to all your software engineering interview needs</p>
+              <h1>Hello, welcome to Interview Gurus!</h1>
+              <p>Start practicing for your software engineering interviews</p>
               <p><a class="btn btn-lg btn-primary register" role="button">Sign up today</a></p>
             </div>
           </div>
@@ -62,8 +62,8 @@
         <div class="item">
           <div class="container slide_container">
             <div class="carousel-caption">
-              <h1>Customize interview test for your personal need</h1>
-              <p>Select Company and category of question, we can make up a special test for you</p>
+              <h1>Take the interview test!</h1>
+              <p>Pick a specific category to practice</p>
               <p><a class="btn btn-lg btn-primary" role="button">Learn more</a></p>
             </div>
           </div>
@@ -71,8 +71,8 @@
         <div class="item">
           <div class="container slide_container">
             <div class="carousel-caption">
-              <h1>We believe practice makes perfect</h1>
-              <p>Post your question and see other guru's solution</p>
+              <h1>Practice makes perfect!</h1>
+	      <p>Do not wait until the last minute</p>
               <p><a class="btn btn-lg btn-primary" id="post_tab_button" role="button">Post your question now!</a></p>
             </div>
           </div>
