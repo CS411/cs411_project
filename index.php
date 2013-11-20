@@ -110,7 +110,7 @@
                       <div class="page-header">
                         <h1>Share your solution</h1>
                       </div>
-                      <textarea placeholder="Type your solution here" class="text_area" id="solution_text" maxlength="1024"></textarea>
+                      <textarea placeholder="Type your solution here" class="text_area form-control" row="10" id="solution_text" maxlength="1024"></textarea>
                       <br>
                       <button id="post_solution_button" class="btn btn-primary" type="button">Post Solution</button><br>
                     </div>
