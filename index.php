@@ -85,12 +85,14 @@
    </div>
    <div id="search_div">
         <br>
-        <div class="form-group">
+        <div class="form-group horizontal">
           <label class="control-label" for="category">Category:</label>
           <div class="controls">
+	   <div class="s_inline">
             <select id="search_category" class="form-control col-xs-2">...</select>
             <button id="search_button" class="btn btn-primary" type="button">Search</button><br>
-            <div id="search_result_div" class="horizontal">
+          </div> 
+	    <div id="search_result_div" class="horizontal">
               <div id="result_list_div" class="horizontal sub-div"></div>
               <div id="result_detail_div" class="horizontal">
                 <div class="page-header">
@@ -125,30 +127,34 @@
       <form role="form">
         <div class="form-group">
           <label for="category">Category:</label>
-          <div class="controls">
+          <div class="p_inline">
             <select id="post_category" class="form-control">...</select>
           </div>
         </div>
     
         <div class="form-group">
          <label for="title">Title:</label>
-            <input type="text" class="title form-control"
+          <div class= "p_inline"> 
+	   <input type="text" class="title form-control"
               placeholder="Type title here"
               id="question_title_text"
               rows="1"
               maxlength="100">
+	  </div>
         </div>
 
         <div class="form-group">
           <label class="control-label" for="question">Question:</label>
-            <textarea type="text" class="text_area form-control"
+           <div class="p_inline">
+	    <textarea type="text" class="q_text_area form-control"
               placeholder="Type question here"
               id="question_text"
               rows="10"
               maxlength="100"></textarea>
             </br>
             <button id="post_question_button" class="btn btn-primary" type="button">Post Question</button><br>
-        </div>
+         </div>
+	 </div>
     </form>
 
    </div>
