@@ -85,25 +85,25 @@
    </div>
    <div id="search_div">
         <br>
-        <div class="form-group horizontal">
+        <div class="form-group float_left">
           <label class="control-label" for="category">Category:</label>
           <div class="controls">
 	   <div class="s_inline">
             <select id="search_category" class="form-control col-xs-2">...</select>
             <button id="search_button" class="btn btn-primary" type="button">Search</button><br>
           </div> 
-	    <div id="search_result_div" class="horizontal">
-              <div id="result_list_div" class="horizontal sub-div"></div>
-              <div id="result_detail_div" class="horizontal">
+	    <div id="search_result_div" class="s_results">
+              <div id="result_list_div" class="s_results q_titles"></div>
+              <div id="result_detail_div" class="s_QandA">
                 <div class="page-header">
                   <h1>Question</h1>
                 </div>
-                <div id="detail_question_div" class="main-div"></div>
+                <div id="detail_question_div" class="q_question"></div>
                   <div class="page-header">
                     <h1>Solution</h1>
                   </div>
-                <div id="detail_solutions_div" class="left-right"></div>
-                <div id="post_solution_div" class="main-div">
+                <div id="detail_solutions_div" class="solutions"></div>
+                <div id="post_solution_div" class="q_question">
                   <div class="form-group">
                     <!--<label class="control-label" for="question">Post Solution:</label>-->
                     <div class="controls">

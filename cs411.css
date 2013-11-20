@@ -37,25 +37,31 @@ html {overflow-y: scroll;}
 	width: 556px;
 }
 
-.horizontal {
+.float_left {
   float: left;
 }
 
-.main-div {
+.s_results{
+  float:left;
+}
+
+.q_question {
   width: 580px;
 }
 
-.sub-div {
+.q_titles {
   width: 300px;
 }
-
+.s_QandA{
+  float:left;
+}
 #result_detail_div {
   margin-left: 26px;
   margin-top: -68px;
 
 }
 
-.left-right {
+.solutions {
   float: left;
   width: 100%;
 }
@@ -88,7 +94,7 @@ html {overflow-y: scroll;}
   width: 17%;
 }
 #post_category{
-  width: 150%;
+  width: 129%;
 }
 
 #search_button{
