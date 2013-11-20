@@ -50,7 +50,8 @@
   position: relative;
 }
 #register{
-  margin-left: 340px;
+  margin-left: 428px;
+  margin-top: 7px;
   color: blue;
 }
 #search_button{
@@ -61,4 +62,33 @@
 }
 .to_right{
   text-align: right;
+}
+#search_category{
+  width: 15%;
+}
+#post_category{
+  width: 30%;
+}
+
+#search_button{
+  margin-top: 1px;
+  margin-left: 10px;
+}
+#username{
+  width: 33%;
+}
+#password{
+  width: 33%;
+}
+#result_list_div{
+  margin-top: 16px;
+}
+.slide_container{
+  height: 400px;
+}
+#myCarousel{
+  background-color: grey;
+}
+.carousel-caption{
+  margin-bottom: 60px;
 }

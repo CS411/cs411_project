@@ -6,11 +6,12 @@ function _init() {
   $("#home_tab").click(_handle_home_tab_click);
   $("#search_tab").click(_handle_search_tab_click);
   $("#post_tab").click(_handle_post_tab_click);
+  $("#post_tab_button").click(_handle_post_tab_click);
  
   $("#search_button").click(_handle_search_button_click);
   $("#post_question_button").click(_handle_post_question_click);
   $("#post_solution_button").click(_handle_post_solution_click);
-  $("#register").click(function(){
+  $(".register").click(function(){
     window.open("http://cky.cs.illinois.edu/carolineli/register.php");
   });
 
@@ -143,21 +144,24 @@ function _handle_search_button_click() {
       empty_search_result();
       $("#result_detail_div").hide();
 
-      var list = new_elem("ul").attr("id", "result_list");
+      var list = new_elem("div").addClass("list-group");
       $("#result_list_div").append(list);
       for (var i=0; i<result.length; i++) {
-        var content = new_link(result[i]['title']);
-        var content_div = new_elem("div", content);
-        var item = new_elem("li", content_div)
+        var content = new_link(result[i]['title']).addClass("list-group-item").attr({
+            "id": "item_q"+result[i]['id'],
+            "qid": result[i]['id']
+          });
+//        var content_div = new_elem("div", content);
+/*        var item = new_elem("li", content_div)
           .attr({
             "id": "item_q"+result[i]['id'],
             "qid": result[i]['id']
           })
           .addClass("result-item")
-          .append(content_div);
-        list.append(item);
+          .append(content_div);*/
+        list.append(content);
       }
-      $(".result-item").click(_handle_result_item_click);
+      $(".list-group-item").click(_handle_result_item_click);
     },
     function(error) {
       alert("Searching failed");
@@ -167,6 +171,8 @@ function _handle_search_button_click() {
 }
 
 function _handle_result_item_click() {
+  $(".list-group-item").removeClass("active");
+  $(event.currentTarget).addClass("active");
   empty_result_detail();
   $("#result_detail_div").hide();
   var qid = $(this).attr("qid");
