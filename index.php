@@ -104,6 +104,9 @@
                   <div class="form-group">
                     <!--<label class="control-label" for="question">Post Solution:</label>-->
                     <div class="controls">
+                      <div class="page-header">
+                        <h1>Share your solutions</h1>
+                      </div>
                       <textarea placeholder="Type your solution here" class="text_area" id="solution_text" maxlength="1024"></textarea>
                       <br>
                       <button id="post_solution_button" class="btn btn-primary" type="button">Post Solution</button><br>
