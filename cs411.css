@@ -94,7 +94,7 @@ html {overflow-y: scroll;}
   width: 17%;
 }
 #post_category{
-  width: 129%;
+  width: 152%;
 }
 
 #search_button{
@@ -120,5 +120,8 @@ html {overflow-y: scroll;}
   margin-bottom: 60px;
 }
 #post_solution_button{
-  margin-top:10px;
+  margin-top: -3px;
+}
+#solution_text{
+  height: 200px;
 }
