@@ -11,7 +11,7 @@ function _init() {
   $("#search_button").click(_handle_search_button_click);
   $("#post_question_button").click(_handle_post_question_click);
   $("#post_solution_button").click(_handle_post_solution_click);
-  $("#editor").hide();
+  $("#code-editor").hide();
   $("#show_or_hide_code_area_button").click(_handle_open_code_area_button_click);
   $(".register").click(function(){
     window.open("http://cky.cs.illinois.edu/project/register.php");
@@ -107,6 +107,10 @@ function _handle_open_code_area_button_click() {
     var editor = ace.edit("editor");
     editor.setTheme("ace/theme/twilight");
     editor.getSession().setMode("ace/mode/c_cpp");
+    $("#code-language").change(function(){
+      var editor = ace.edit("editor");
+      editor.getSession().setMode("ace/mode/" + $(this).find(":selected").text());
+    });
     $('#show_or_hide_code_area_button').text("Hide Code Editor")
     open_code_flag = 0;
   } else {

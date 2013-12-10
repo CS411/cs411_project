@@ -114,10 +114,23 @@
                       </div>
                       <textarea placeholder="Type your solution here" class="text_area form-control" row="10" id="solution_text" maxlength="1024"></textarea>
                       <br>
-                      <pre id="editor">function foo(){
+                      <div id="code-editor">
+                        <span>Select the language you use</span>
+                        <select class="form-control" id="code-language">
+                          <option>c_cpp</option>
+                          <option>javascript</option>
+                          <option>php</option>
+                          <option>python</option>
+                          <option>ruby</option>
+                          <option>perl</option>
+                          <option>matlab</option>
+                          <option>verilog</option>
+                        </select>
+                        <pre id="editor">function foo(){
   var i = 5;
 }
-                      </pre>
+                        </pre>
+                      </div>
                       <button id="show_or_hide_code_area_button" class="btn btn-success" type="button">Open Code Editor</button>
                       <button id="post_solution_button" class="btn btn-primary" type="button">Post Solution</button><br>
 
