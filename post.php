@@ -111,7 +111,7 @@ function getSolutions($con) {
 
 function getSolution($con) {
   $SID = $_GET['id'];
-  $sql = "SELECT s.description, s.vote FROM solutions s WHERE s.ID ='".$SID."'" ;
+  $sql = "SELECT s.description, s.vote, s.code, s.language FROM solutions s WHERE s.ID ='".$SID."'" ;
   $result = mysqli_query($con,$sql);
   $row = mysqli_fetch_array($result);
   /*$ret = array();
@@ -123,6 +123,8 @@ function getSolution($con) {
   $ret = array();
   $ret['desc'] = $row['description'];
   $ret['votes'] = $row['vote'];
+  $ret['code'] = $row['code'];
+  $ret['language'] = $row['language'];
   header('Content-type: application/json');
   return json_encode($ret);
 }
