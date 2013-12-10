@@ -175,6 +175,7 @@ function empty_result_detail() {
 }
 
 function empty_search_result() {
+  $("#keyword").val("");
   $("#result_list_div").empty();
   empty_result_detail();
 }
@@ -188,7 +189,8 @@ function _handle_search_button_click() {
       keyword: $("#keyword").val()
     },
     function(result) {
-      empty_search_result();
+      $("#result_list_div").empty();
+      empty_result_detail();
       $("#result_detail_div").hide();
 
       var list = new_elem("div").addClass("list-group");
