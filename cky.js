@@ -36,9 +36,10 @@ function _init() {
           var option = new_elem("option", result[i])
           if (result[i] == "All") {
             option.attr("selected", "selected");
+          } else {
+            post_cat.append($("<option></option>").append(result[i]));
           }
           search_cat.append(option);
-        post_cat.append($("<option></option>").append(result[i]));
       }
     },
     function() {
