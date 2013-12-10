@@ -125,7 +125,7 @@ html {overflow-y: scroll;}
 #solution_text{
   height: 200px;
 }
-#editor{
+.editor{
   height: 200px;
   margin-top: 20px;
 }

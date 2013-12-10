@@ -397,10 +397,10 @@ function render_post(post_type, id, div) {
       if(post_type == "solution"){
         var code = result['code'];
         var language = result['language'];
-        div.append(new_elem("pre", code , "editor" + full_id));
-        var editor = ace.edit("editor" + full_id);
-        editor.setTheme("ace/theme/clouds");
-        editor.getSession().setMode("ace/mode/" + language);
+        div.append(new_elem("pre", code , "editor" + full_id).addClass("editor"));
+        //var editor = ace.edit("editor" + full_id);
+        //editor.setTheme("ace/theme/clouds");
+        //editor.getSession().setMode("ace/mode/" + language);
       }
     },
     function() {

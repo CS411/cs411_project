@@ -126,7 +126,7 @@
                           <option>matlab</option>
                           <option>verilog</option>
                         </select>
-                        <pre id="editor">function foo(){
+                        <pre id="editor" class="editor">function foo(){
   var i = 5;
 }
                         </pre>
