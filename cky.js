@@ -334,13 +334,15 @@ function _handle_post_solution_click() {
   }
   var editor = ace.edit("editor");
   var code = editor.getValue();
+  var lang = $("#code-language").find(":selected").text();
   ajax_call(
     "./post.php",
     { 
       method: "post_solution",
       qid: $(this).attr("qid"),
       desc: soln_text.val(),
-      code: code
+      code: code,
+      language: lang
     },
     function(sid) {
       soln_text.val("");
