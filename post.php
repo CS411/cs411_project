@@ -171,7 +171,14 @@ function deleteSolution($con) {
 
 function searchCategory($con) {
   $category = $_POST['category'];
-  $sql = "SELECT ID, title,vote FROM questions WHERE category = '" . $category . "' order by vote desc";
+  $keyword = $_POST['keyword'];
+  $word = "%" . $keyword . "%";
+  if ($category=="All") { 
+    $sql = "SELECT ID, title,vote FROM questions WHERE (description LIKE '" . $word ."' OR title LIKE '".$word."') order by vote desc";
+  }
+  else {
+    $sql = "SELECT ID, title,vote FROM questions WHERE category = '" . $category . "' AND (description LIKE '" . $word ."' OR title LIKE '".$word."') order by vote desc";
+  }
   $result = mysqli_query($con,$sql);
   $ret = array();
   while($row = mysqli_fetch_array($result)) {
