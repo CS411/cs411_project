@@ -205,12 +205,12 @@ function _handle_result_item_click() {
     function(solutions) {
       var ques_post = new_elem("div").attr("qid", qid);
       $("#detail_question_div").append(ques_post);
-      create_post("question", qid, ques_post);
+      render_post("question", qid, ques_post);
 
       for (var i=0; i<solutions.length; i++) {
         var sid = solutions[i]['id'];
         var soln_div = new_elem("div").attr("id", "post_s"+sid).attr("sid", sid);
-        create_post("solution", sid, soln_div);
+        render_post("solution", sid, soln_div);
         $("#detail_solutions_div").append(soln_div);
       }
       $("#post_solution_button").attr("qid", qid);
@@ -284,9 +284,9 @@ function _handle_cancel_click() {
   var div = $(this).parent().parent();
   var qid = div.attr("qid");
   if (typeof qid != "undefined") {
-    create_post("question", qid, div);
+    render_post("question", qid, div);
   } else {
-    create_post("solution", div.attr("sid"), div);
+    render_post("solution", div.attr("sid"), div);
   }
 }
 
@@ -314,9 +314,9 @@ function _handle_done_click() {
     },
     function() {
       if (method == "edit_question") {
-        create_post("question", id, div);
+        render_post("question", id, div);
       } else {
-        create_post("solution", id, div);
+        render_post("solution", id, div);
       }
     },
     function() {
@@ -353,7 +353,7 @@ function _handle_post_solution_click() {
         .attr("sid", sid)
         .addClass("thumbnail");
       $("#detail_solutions_div").append(div);
-      create_post("solution", sid, div);
+      render_post("solution", sid, div);
     },
     function() {
       alert("Failed");
@@ -362,7 +362,7 @@ function _handle_post_solution_click() {
   );
 }
 
-function create_post(post_type, id, div) {
+function render_post(post_type, id, div) {
   ajax_call(
     "./post.php?request="+post_type+"&id="+id,
     null,
@@ -396,6 +396,7 @@ function create_post(post_type, id, div) {
       $("#delete_"+full_id).click(_handle_delete_click);
     },
     function() {
+      div.remove();
       alert("Updatin post failed");
     }
   );
