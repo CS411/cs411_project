@@ -162,6 +162,7 @@ function _handle_search_button_click() {
     { 
       method: "search_question",
       category: $("#search_category").val(),
+      keyword: $("#keyword").val()
     },
     function(result) {
       empty_search_result();
