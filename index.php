@@ -118,7 +118,7 @@
                         <span>Select the language you use</span>
                         <select class="form-control" id="code-language">
                           <option>c_cpp</option>
-                          <option>javascript</option>
+                          <option>java</option>
                           <option>php</option>
                           <option>python</option>
                           <option>ruby</option>
