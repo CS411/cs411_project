@@ -100,15 +100,16 @@ function new_link(content, id) {
   }
   return link;
 }
-function _handle_open_code_area_button_click(){
-  if(open_code_flag == 1){
+
+function _handle_open_code_area_button_click() {
+  if (open_code_flag == 1) {
     $("#editor").show();
     var editor = ace.edit("editor");
     editor.setTheme("ace/theme/twilight");
     editor.getSession().setMode("ace/mode/c_cpp");
     $('#show_or_hide_code_area_button').text("Hide Code Editor")
     open_code_flag = 0;
-  }else{
+  } else {
     $("#editor").hide();
     $('#show_or_hide_code_area_button').text("Open Code Editor")
     open_code_flag = 1;
