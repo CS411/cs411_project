@@ -23,9 +23,14 @@ function _init() {
     null,
     function(result) {
       var search_cat = $("#search_category");
+      search_cat.val(2);
       var post_cat = $("#post_category");
       for (var i=0; i<result.length; i++) {
-        search_cat.append($("<option></option>").append(result[i]));
+          var option = new_elem("option", result[i])
+          if (result[i] == "All") {
+            option.attr("selected", "selected");
+          }
+          search_cat.append(option);
         post_cat.append($("<option></option>").append(result[i]));
       }
     },

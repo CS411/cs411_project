@@ -22,13 +22,13 @@
       <div class="container">
         <a class="navbar-brand" href="#">Interview Gurus</a>
         <div class="navbar-collapse collapse">
-          <form class="navbar-form pull-right" name="form" method="post" action="login.php">
-              <!--  <a id="newuser_href" href="#NewUser">New User</a>-->
+          <!--<form class="navbar-form pull-right" name="form" method="post" action="login.php">
+              <a id="newuser_href" href="#NewUser">New User</a>
 	          <input class="span2 form-control" name="username" type="text" placeholder="UserName" id="username">
             <input class="span2 form-control" name="passwd" type="password" placeholder="Password" id="password">
             <button type="submit" name="button" class="btn btn-default" id="login">Sign in</button>
             <button type="submit" class="btn btn-default register" id="register">Register</button> 
-	        </form>
+	        </form>-->
         </div>
        </div><!--end container -->
       </div><!--end navbar inner -->
