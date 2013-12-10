@@ -58,6 +58,21 @@ if ($_POST['method']=='vote_question') {
   voteQuestion($con);
 }
 
+if ($_GET['request']=='words') {
+  echo getAllWords($con);
+}
+
+function getAllWords($con) {
+  $output = "";
+  $sql = "SELECT title, description FROM questions";
+  $result = mysqli_query($con, $sql);
+  while ($row = mysqli_fetch_array($result)) {
+    $output = $output . $row['title'] . " " . $row['description'];
+  }
+  header('Content-type: application/json');
+  return json_encode($output);
+}
+
 function voteSolution($con) {
   $SID = $_POST['id'];
   $sql = "SELECT vote FROM solutions WHERE id = '".$SID."'";
