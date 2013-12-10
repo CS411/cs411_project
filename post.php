@@ -171,7 +171,7 @@ function deleteSolution($con) {
 
 function searchCategory($con) {
   $category = $_POST['category'];
-  $sql = "SELECT ID, title FROM questions WHERE category = '" . $category . "'";
+  $sql = "SELECT ID, title FROM questions WHERE category = '" . $category . "' order by vote desc";
   $result = mysqli_query($con,$sql);
   $ret = array();
   while($row = mysqli_fetch_array($result)) {
