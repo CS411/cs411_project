@@ -198,6 +198,7 @@ function postSolution($con) {
   $desc = $_POST['desc'];
   $QID = $_POST['qid'];
   $code = $_POST['code'];
+  $language = $_POST['language'];
   $escape_desc = mysqli_real_escape_string($con,$desc);
   $escape_code = mysqli_real_escape_string($con,$code);
 
@@ -206,7 +207,7 @@ function postSolution($con) {
   $result = mysqli_query($con,"select @@identity");
   $row = mysqli_fetch_array($result);
   $SID = $row[0];
-  $sql = "INSERT INTO solutions(ID,description,code) VALUES ('".$SID."','".$escape_desc."','".$escape_code."')";
+  $sql = "INSERT INTO solutions(ID,description,code,language) VALUES ('".$SID."','".$escape_desc."','".$escape_code."','".$language."')";
   mysqli_query($con,$sql);
   header('Content-type: application/json');
   return json_encode($SID);
