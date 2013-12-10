@@ -84,13 +84,13 @@
           </div><!-- /.carousel -->
         </div>
 
-        <div id="search_div">
+        <div id="search_div" class="search-div">
           <br>
           <div class="form-group float_left">
             <label class="control-label" for="keyword">Keyword:</label>
             <div class="controls">
 	            <div class="s_inline">
-                <input id="keyword" type="text" name="keyword">
+                <input id="keyword" type="text" class="keyword form-control">
               </div>
             </div>
           </div>
@@ -136,9 +136,10 @@
                             <option>matlab</option>
                             <option>verilog</option>
                           </select>
-                          <pre id="editor" class="editor">function foo(){
-  var i = 5;
-}
+                          <pre id="editor" class="editor">
+                            function foo(){
+                              var i = 5;
+                            }
                           </pre>
                         </div>
                         <button id="show_or_hide_code_area_button" class="btn btn-success" type="button">Open Code Editor</button>
@@ -161,7 +162,7 @@
             <select id="post_category" class="form-control">...</select>
           </div>
         </div>
-    
+
         <div class="form-group">
          <label for="title">Title:</label>
           <div class= "p_inline"> 

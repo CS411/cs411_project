@@ -1,10 +1,14 @@
 html {overflow-y: scroll;}
+.post-div {
+	width: 600px;
+}
+
 .post-div .title {
   width: 600px;
 }
 
-.post-div {
-	width: 600px;
+.search-div .keyword {
+  width: 140px;
 }
 
 .p_inline{
