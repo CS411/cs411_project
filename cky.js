@@ -334,10 +334,15 @@ function create_post(post_type, id, div) {
     "./post.php?request="+post_type+"&id="+id,
     null,
     function(result) {
+      var desc = result['desc'];
+      var votes = result['votes'];
       div.empty();
       div.addClass("thumbnail");
-      var span = new_elem("span").append(textToHtml(result));
+      var span = new_elem("span").append(textToHtml(desc));
       var full_id = post_type == "question" ? "q"+id : "s"+id;
+      var vote_button = 
+        new_elem("button", "vote", "vote_"+full_id)
+        .attr("value", votes);
       var edit_button =
         new_elem("button", "edit", "edit_"+full_id)
         .addClass("btn")
@@ -347,9 +352,11 @@ function create_post(post_type, id, div) {
         .addClass("btn")
         .addClass("btn-danger")
       var button_div = new_elem("div").addClass("to_right")
+        .append(vote_button)
         .append(edit_button)
         .append(delete_button);
       div.append(span).append(button_div);
+      $("#vote_"+full_id).click(_handle_vote_click);
       $("#edit_"+full_id).click(_handle_edit_click);
       $("#delete_"+full_id).click(_handle_delete_click);
     },
@@ -358,6 +365,35 @@ function create_post(post_type, id, div) {
     }
   );
 }
+
+function _handle_vote_click() {
+  var div = $(this).parent().parent();
+  //$(this).append("d");
+  var votes = parseInt($(this).attr("value"), 10)+1;
+  var voted_button
+    = new_elem("button", votes);
+  $(this).before(voted_button);
+  $(this).remove();
+
+  var id = div.attr("qid");
+  if (typeof id != "undefined") {
+    method = "vote_question";
+  } else {
+    method = "vote_solution";
+    id = div.attr("sid");
+  }
+  ajax_call(
+    "./post.php",
+    {
+      method: method,
+      id: id
+    },
+    null,
+    null,
+    "post"
+  );
+}
+
 
 // Post Tab 
 
