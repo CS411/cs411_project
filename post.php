@@ -184,10 +184,12 @@ function searchCategory($con) {
 
 function searchID($con) {
   $id = $_GET['id'];
-  $sql = "SELECT description FROM questions Where id = '" . $id . "' ";
+  $sql = "SELECT description,vote FROM questions Where id = '" . $id . "' ";
   $result = mysqli_query($con,$sql);
   $row = mysqli_fetch_array($result);
-  $ret = $row['description'];
+  $ret = array();
+  $ret['desc'] = $row['description'];
+  $ret['votes'] = $row['vote'];
   header('Content-type: application/json');
   return json_encode($ret); 
 }
