@@ -171,13 +171,14 @@ function deleteSolution($con) {
 
 function searchCategory($con) {
   $category = $_POST['category'];
-  $sql = "SELECT ID, title FROM questions WHERE category = '" . $category . "' order by vote desc";
+  $sql = "SELECT ID, title,vote FROM questions WHERE category = '" . $category . "' order by vote desc";
   $result = mysqli_query($con,$sql);
   $ret = array();
   while($row = mysqli_fetch_array($result)) {
     $tmp = array();
     $tmp['id'] = $row['ID'];
     $tmp['title'] = $row['title'];
+    $tmp['votes'] = $row['vote'];
     array_push($ret,$tmp);
   }
   header('Content-type: application/json');
