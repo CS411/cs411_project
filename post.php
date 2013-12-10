@@ -174,10 +174,10 @@ function searchCategory($con) {
   $keyword = $_POST['keyword'];
   $word = "%" . $keyword . "%";
   if ($category=="All") { 
-    $sql = "SELECT ID, title,vote FROM questions WHERE description LIKE '" . $word ."' order by vote desc";
+    $sql = "SELECT ID, title,vote FROM questions WHERE (description LIKE '" . $word ."' OR title LIKE '".$word."') order by vote desc";
   }
   else {
-    $sql = "SELECT ID, title,vote FROM questions WHERE category = '" . $category . "' AND description LIKE '" . $word ."' order by vote desc";
+    $sql = "SELECT ID, title,vote FROM questions WHERE category = '" . $category . "' AND (description LIKE '" . $word ."' OR title LIKE '".$word."') order by vote desc";
   }
   $result = mysqli_query($con,$sql);
   $ret = array();
