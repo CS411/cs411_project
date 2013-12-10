@@ -5,6 +5,7 @@ function _init() {
 
   $("#home_tab").click(_handle_home_tab_click);
   $("#search_tab").click(_handle_search_tab_click);
+  $("#keyword_tab").click(_handle_keyword_tab_click);
   $("#post_tab").click(_handle_post_tab_click);
   $("#post_tab_button").click(_handle_post_tab_click);
  
@@ -15,6 +16,12 @@ function _init() {
   $("#show_or_hide_code_area_button").click(_handle_open_code_area_button_click);
   $(".register").click(function(){
     window.open("http://cky.cs.illinois.edu/project/register.php");
+  });
+  $('.wrd').click(function(){
+    $("#search_tab").trigger("click");
+    $("#search_category").val("All");
+    $("#keyword").val($(this).children(0).text());
+    $("#search_button").trigger("click");
   });
 
 //  $("#login").click(_handle_login_request);
@@ -65,6 +72,7 @@ function hide_all_tabs_but(tab) {
   $("#home_div").hide();
   $("#search_div").hide();
   $("#post_div").hide();
+  $("#keyword_div").hide();
   if (typeof tab != "undefined") {
     $("#"+tab+"_div").show();
   }
@@ -128,8 +136,16 @@ function _handle_open_code_area_button_click() {
 function _handle_home_tab_click() {
   hide_all_tabs_but("home");
   $("#search_tab").parent().removeClass("active"); 
+  $("#keyword_tab").parent().removeClass("active"); 
   $("#post_tab").parent().removeClass("active"); 
   $('#home_tab').parent().addClass("active"); 
+}
+function _handle_keyword_tab_click() {
+  hide_all_tabs_but("keyword");
+  $("#post_tab").parent().removeClass("active"); 
+  $("#home_tab").parent().removeClass("active"); 
+  $("#search_tab").parent().removeClass("active"); 
+  $("#keyword_tab").parent().addClass("active"); 
 }
 
 function _handle_search_tab_click() {
@@ -137,6 +153,7 @@ function _handle_search_tab_click() {
   empty_search_result();
   $("#result_detail_div").hide();
   $("#post_tab").parent().removeClass("active"); 
+  $("#keyword_tab").parent().removeClass("active"); 
   $("#home_tab").parent().removeClass("active"); 
   $("#search_tab").parent().addClass("active"); 
 }
@@ -144,6 +161,7 @@ function _handle_search_tab_click() {
 function _handle_post_tab_click() {
   hide_all_tabs_but("post");
   $("#home_tab").parent().removeClass("active"); 
+  $("#keyword_tab").parent().removeClass("active"); 
   $("#search_tab").parent().removeClass("active"); 
   $("#post_tab").parent().addClass("active"); 
 }
