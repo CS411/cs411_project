@@ -97,7 +97,7 @@ function getCategories($con) {
 
 function getSolutions($con) {
   $QID = $_GET['id'];
-  $sql = "SELECT a.SID FROM answers a WHERE a.QID ='".$QID."'" ;
+  $sql = "SELECT a.SID FROM answers a,solutions s WHERE a.QID ='".$QID."' and a.SID = s.id order by s.vote desc" ;
   $result = mysqli_query($con,$sql);
   $ret = array();
   while ($row = mysqli_fetch_array($result)) {
