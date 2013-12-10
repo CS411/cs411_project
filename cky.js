@@ -394,6 +394,14 @@ function render_post(post_type, id, div) {
       $("#vote_"+full_id).click(_handle_vote_click);
       $("#edit_"+full_id).click(_handle_edit_click);
       $("#delete_"+full_id).click(_handle_delete_click);
+      if(post_type == "solution"){
+        var code = result['code'];
+        var language = result['language'];
+        div.append(new_elem("pre", code , "editor" + full_id));
+        var editor = ace.edit("editor" + full_id);
+        editor.setTheme("ace/theme/clouds");
+        editor.getSession().setMode("ace/mode/" + language);
+      }
     },
     function() {
       div.remove();
