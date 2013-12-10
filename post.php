@@ -50,6 +50,24 @@ if ($_POST['method']=='edit_solution') {
   echo editSolution($con);
 }
 
+if ($_POST['method']=='vote_solution') {
+  echo voteSolution($con);
+}
+
+
+function voteSolution($con) {
+  $SID = $_POST['id'];
+  $sql = "SELECT vote FROM solutions WHERE id = '".$SID."'";
+  $result = mysqli_query($con, $sql);
+  $row = mysqli_fetch_array($result);
+  $ori_vote = $row['vote'];
+  $new_vote = $ori_vote + 1;
+  
+  $sql = "UPDATE solutions SET vote = '".$new_vote."' WHERE id = '".$SID."'";
+  mysqli_query($con,$sql);
+  return $sql;
+}
+
 function getCategories($con) {
   $sql = "SELECT name FROM categories";
   $result = mysqli_query($con, $sql);
