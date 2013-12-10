@@ -18,7 +18,10 @@ function _init() {
     window.open("http://cky.cs.illinois.edu/project/register.php");
   });
   $('.wrd').click(function(){
-    alert("ya");
+    $("#search_tab").trigger("click");
+    $("#search_category").val("All");
+    $("#keyword").val($(this).children(0).text());
+    $("#search_button").trigger("click");
   });
 
 //  $("#login").click(_handle_login_request);
@@ -175,8 +178,9 @@ function _handle_search_button_click() {
   ajax_call(
     "./post.php",
     { 
-      method: "search_category",
+      method: "search_question",
       category: $("#search_category").val(),
+      keyword: $("#keyword").val()
     },
     function(result) {
       empty_search_result();
@@ -185,7 +189,10 @@ function _handle_search_button_click() {
       var list = new_elem("div").addClass("list-group");
       $("#result_list_div").append(list);
       for (var i=0; i<result.length; i++) {
-        var content = new_link(result[i]['title']).addClass("list-group-item").attr({
+        var content = 
+          new_link(result[i]['title'])
+          .addClass("list-group-item")
+          .attr({
             "id": "item_q"+result[i]['id'],
             "qid": result[i]['id']
           });
