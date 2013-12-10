@@ -341,7 +341,7 @@ function create_post(post_type, id, div) {
       var span = new_elem("span").append(textToHtml(desc));
       var full_id = post_type == "question" ? "q"+id : "s"+id;
       var vote_button = 
-        new_elem("button", "vote", "vote_"+full_id)
+        new_elem("button", votes, "vote_"+full_id)
         .attr("value", votes);
       var edit_button =
         new_elem("button", "edit", "edit_"+full_id)
@@ -368,10 +368,9 @@ function create_post(post_type, id, div) {
 
 function _handle_vote_click() {
   var div = $(this).parent().parent();
-  //$(this).append("d");
   var votes = parseInt($(this).attr("value"), 10)+1;
   var voted_button
-    = new_elem("button", votes);
+    = new_elem("button", votes).attr("value", votes);
   $(this).before(voted_button);
   $(this).remove();
 
