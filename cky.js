@@ -160,7 +160,7 @@ function _handle_search_button_click() {
   ajax_call(
     "./post.php",
     { 
-      method: "search_category",
+      method: "search_question",
       category: $("#search_category").val(),
     },
     function(result) {
