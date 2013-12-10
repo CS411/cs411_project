@@ -170,7 +170,10 @@ function _handle_search_button_click() {
       var list = new_elem("div").addClass("list-group");
       $("#result_list_div").append(list);
       for (var i=0; i<result.length; i++) {
-        var content = new_link(result[i]['title']).addClass("list-group-item").attr({
+        var content = 
+          new_link(result[i]['title'])
+          .addClass("list-group-item")
+          .attr({
             "id": "item_q"+result[i]['id'],
             "qid": result[i]['id']
           });
