@@ -140,6 +140,8 @@ function _handle_post_tab_click() {
 function empty_result_detail() {
   $("#detail_question_div").empty();
   $("#detail_solutions_div").empty();
+  $("#solution_text").val("");
+  ace.edit("editor").setValue("");
   $("#post_solution_button").removeAttr("qid");
 }
 
@@ -324,16 +326,24 @@ function _handle_post_solution_click() {
     alert("Description can not be empty");
     return;
   }
+  var editor = ace.edit("editor");
+  var code = editor.getValue();
   ajax_call(
     "./post.php",
     { 
       method: "post_solution",
       qid: $(this).attr("qid"),
-      desc: soln_text.val()
+      desc: soln_text.val(),
+      code: code
     },
     function(sid) {
       soln_text.val("");
-      var div = new_elem("div").attr("id", "post_s"+sid).attr("sid", sid).addClass("thumbnail");
+      ace.edit("editor").setValue("");
+      var div = 
+        new_elem("div")
+        .attr("id", "post_s"+sid)
+        .attr("sid", sid)
+        .addClass("thumbnail");
       $("#detail_solutions_div").append(div);
       create_post("solution", sid, div);
     },
@@ -356,7 +366,9 @@ function create_post(post_type, id, div) {
       var span = new_elem("span").append(textToHtml(desc));
       var full_id = post_type == "question" ? "q"+id : "s"+id;
       var vote_button = 
-        new_elem("button", votes, "vote_"+full_id)
+        new_elem("button", "+"+votes, "vote_"+full_id)
+        .addClass("btn")
+        .addClass("btn-default")
         .attr("value", votes);
       var edit_button =
         new_elem("button", "edit", "edit_"+full_id)
@@ -385,7 +397,9 @@ function _handle_vote_click() {
   var div = $(this).parent().parent();
   var votes = parseInt($(this).attr("value"), 10)+1;
   var voted_button
-    = new_elem("button", votes).attr("value", votes);
+    = new_elem("button","+"+votes).attr("value", votes)
+      .addClass("btn")
+      .addClass("btn-default");
   $(this).before(voted_button);
   $(this).remove();
 
