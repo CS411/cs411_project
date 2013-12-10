@@ -114,8 +114,8 @@ function _handle_open_code_area_button_click() {
     $('#show_or_hide_code_area_button').text("Hide Code Editor")
     open_code_flag = 0;
   } else {
-    $("#editor").hide();
-    $('#show_or_hide_code_area_button').text("Open Code Editor")
+    $("#code-editor").hide();
+    $('#show_or_hide_code_area_button').text("Open Code Editor");
     open_code_flag = 1;
   }
 }
