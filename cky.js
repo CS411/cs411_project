@@ -103,7 +103,7 @@ function new_link(content, id) {
 
 function _handle_open_code_area_button_click() {
   if (open_code_flag == 1) {
-    $("#editor").show();
+    $("#code-editor").show();
     var editor = ace.edit("editor");
     editor.setTheme("ace/theme/twilight");
     editor.getSession().setMode("ace/mode/c_cpp");
@@ -119,6 +119,7 @@ function _handle_open_code_area_button_click() {
     open_code_flag = 1;
   }
 }
+
 function _handle_home_tab_click() {
   hide_all_tabs_but("home");
   $("#search_tab").parent().removeClass("active"); 
