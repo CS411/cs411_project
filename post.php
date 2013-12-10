@@ -34,7 +34,7 @@ if ($_POST['method']=='delete_solution') {
   deleteSolution($con);
 }
 
-if ($_POST['method']=='search_category') {
+if ($_POST['method']=='search_question') {
   echo searchCategory($con);
 }
 
