@@ -150,7 +150,7 @@
               placeholder="Type question here"
               id="question_text"
               rows="10"
-              maxlength="100"></textarea>
+              maxlength="5000"></textarea>
             </br>
             <button id="post_question_button" class="btn btn-primary" type="button">Post Question</button><br>
          </div>
