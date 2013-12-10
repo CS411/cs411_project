@@ -1,5 +1,5 @@
 $(document).ready(_init);
-
+var open_code_flag = 1;
 function _init() {
   hide_all_tabs_but("home");
 
@@ -11,6 +11,8 @@ function _init() {
   $("#search_button").click(_handle_search_button_click);
   $("#post_question_button").click(_handle_post_question_click);
   $("#post_solution_button").click(_handle_post_solution_click);
+  $("#editor").hide();
+  $("#show_or_hide_code_area_button").click(_handle_open_code_area_button_click);
   $(".register").click(function(){
     window.open("http://cky.cs.illinois.edu/project/register.php");
   });
@@ -98,7 +100,20 @@ function new_link(content, id) {
   }
   return link;
 }
-
+function _handle_open_code_area_button_click(){
+  if(open_code_flag == 1){
+    $("#editor").show();
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/twilight");
+    editor.getSession().setMode("ace/mode/c_cpp");
+    $('#show_or_hide_code_area_button').text("Hide Code Editor")
+    open_code_flag = 0;
+  }else{
+    $("#editor").hide();
+    $('#show_or_hide_code_area_button').text("Open Code Editor")
+    open_code_flag = 1;
+  }
+}
 function _handle_home_tab_click() {
   hide_all_tabs_but("home");
   $("#search_tab").parent().removeClass("active"); 
