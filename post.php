@@ -197,6 +197,7 @@ function searchID($con) {
 function postSolution($con) {
   $desc = $_POST['desc'];
   $QID = $_POST['qid'];
+  $code = $_POST['code'];
   $escape_desc = mysqli_real_escape_string($con,$desc);
 
   $sql = "INSERT INTO answers(QID) values('".$QID."')";
@@ -204,7 +205,7 @@ function postSolution($con) {
   $result = mysqli_query($con,"select @@identity");
   $row = mysqli_fetch_array($result);
   $SID = $row[0];
-  $sql = "INSERT INTO solutions(ID,description) VALUES ('".$SID."','".$escape_desc."')";
+  $sql = "INSERT INTO solutions(ID,description,code) VALUES ('".$SID."','".$escape_desc."','".$code."')";
   mysqli_query($con,$sql);
   header('Content-type: application/json');
   return json_encode($SID);
