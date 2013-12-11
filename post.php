@@ -242,7 +242,8 @@ function postSolution($con) {
 function editQuestion($con) {
   $QID = $_POST['id'];
   $desc = $_POST['desc'];
-  $sql = "UPDATE questions SET description ='".$desc."' WHERE id= '".$QID."'";
+  $escape_desc = mysqli_real_escape_string($con,$desc);
+  $sql = "UPDATE questions SET description ='".$escape_desc."' WHERE id= '".$QID."'";
   mysqli_query($con,$sql);
   return $sql;
 }
@@ -250,7 +251,8 @@ function editQuestion($con) {
 function editSolution($con) {
   $SID = $_POST['id'];
   $desc = $_POST['desc'];
-  $sql = "UPDATE solutions SET description ='".$desc."' WHERE id= '".$SID."'";
+  $escape_desc = mysqli_real_escape_string($con,$desc);
+  $sql = "UPDATE solutions SET description ='".$escape_desc."' WHERE id= '".$SID."'";
   mysqli_query($con,$sql);
   return $sql;
 }
