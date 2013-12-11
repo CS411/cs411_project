@@ -39,7 +39,7 @@
  		 <li class=active> <a id="home_tab" href="#Home" data-toggle="tab">Home</a></li>
 		 <li><a id="search_tab" href="#Search" data-toggle="tab">Search</a></li>
 		 <li><a id="post_tab" href="#Post" data-toggle="tab">Post</a></li>
-		 <li><a id="keyword_tab" href="#Keyword" data-toggle="tab">Keyword Cloud</a></li>
+		 <li><a id="keyword_tab" href="#Keyword" data-toggle="tab">Word Cloud</a></li>
             </div> 
 
       <div class="tab-content">
