@@ -8,6 +8,8 @@ function _init() {
   $("#keyword_tab").click(_handle_keyword_tab_click);
   $("#post_tab").click(_handle_post_tab_click);
   $("#post_tab_button").click(_handle_post_tab_click);
+  $("#search_tab_button").click(_handle_search_tab_button_click);
+  $("#learn_more").click(_handle_learn_more_button_click);
  
   $("#search_button").click(_handle_search_button_click);
   $("#post_question_button").click(_handle_post_question_click);
@@ -157,6 +159,13 @@ function _handle_search_tab_click() {
   $("#keyword_tab").parent().removeClass("active"); 
   $("#home_tab").parent().removeClass("active"); 
   $("#search_tab").parent().addClass("active"); 
+}
+
+function _handle_search_tab_button_click() {
+  $("#search_tab").trigger("click"); 
+}
+function _handle_learn_more_button_click() {
+  $("#keyword_tab").trigger("click"); 
 }
 
 function _handle_post_tab_click() {

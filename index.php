@@ -57,7 +57,7 @@
                   <div class="carousel-caption">
                     <h1>Hello, welcome to Interview Gurus!</h1>
                     <h3>Start practicing questions for your software engineering interviews</h3>
-	            <p><a class="btn btn-lg btn-primary" role="button">Learn more</a></p>        	
+	            <p><a class="btn btn-lg btn-primary" id="learn_more" role="button">Learn more</a></p>        	
                   </div>
                 </div>
               </div>
